@@ -2,7 +2,11 @@ package com.example.mylistview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -12,10 +16,15 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Pokemon> pokemonList;
     ListView lv;
     PokemonAdapter adapter;
+
+    SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
+
 
         Pokemon pk1 = new Pokemon("giglipuf", 500, "mind");
         Pokemon pk2 = new Pokemon("psyduck", 1500, "mind");
@@ -34,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
         adapter = new PokemonAdapter(pokemonList,
                 MainActivity.this);
         lv.setAdapter(adapter);
-
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, EditScreen.class);
+                startActivity(intent);
+            }
+        });
     }
 }
