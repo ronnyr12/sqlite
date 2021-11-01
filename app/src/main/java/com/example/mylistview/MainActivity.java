@@ -24,13 +24,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
+        Pokemon pk1 = new Pokemon("giglipuf",
+                500, "mind");
 
+        Pokemon pk2 = new Pokemon("psyduck",
+                1500, "mind");
 
-        Pokemon pk1 = new Pokemon("giglipuf", 500, "mind");
-        Pokemon pk2 = new Pokemon("psyduck", 1500, "mind");
-        Pokemon pk3 = new Pokemon("aggron", 2000, "rock");
-        Pokemon pk4 = new Pokemon("picachu", 3500, "electricity");
-        Pokemon pk5 = new Pokemon("riyachu", 5500, "electricity");
+        Pokemon pk3 = new Pokemon("aggron",
+                2000, "rock");
+
+        Pokemon pk4 = new Pokemon("picachu",
+                3500, "electricity");
+
+        Pokemon pk5 = new Pokemon("riyachu",
+                5500, "electricity");
 
         pokemonList = new ArrayList<Pokemon>();
         pokemonList.add(pk1);
@@ -38,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         pokemonList.add(pk3);
         pokemonList.add(pk4);
         pokemonList.add(pk5);
+
+
 
         lv = findViewById(R.id.lv_pokemon);
         adapter = new PokemonAdapter(pokemonList,

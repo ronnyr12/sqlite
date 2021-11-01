@@ -47,7 +47,7 @@ public class EditScreen extends AppCompatActivity {
                 radioButton = findViewById(selectedId);
 
                 Toast.makeText(EditScreen.this,
-                        radioButton.getText().toString(), Toast.LENGTH_SHORT).show();
+                        radioButton.getText(), Toast.LENGTH_LONG).show();
             }
         });
         edit_layout = findViewById(R.id.edit_layout);
