@@ -7,5 +7,6 @@ public class Utils {
     final static String TABLE_POKEMON_COL_POWER = "power";
     final static String TABLE_POKEMON_COL_TYPE = "type";
 
+    final static String INTENT_KEY_POKEMON_NAME = "pokemon_name";
 
 }
