@@ -2,8 +2,63 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#989191"
     tools:context=".EditScreen">
 
+    <Switch
+        android:id="@+id/swtch_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="92dp"
+        android:layout_marginEnd="16dp"
+        android:text="dark mode"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/rg_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.213"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.396">
+
+        <RadioButton
+            android:id="@+id/rb_mind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="mind" />
+
+        <RadioButton
+            android:id="@+id/rb_electricity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="electricity" />
+
+        <RadioButton
+            android:id="@+id/rb_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="water" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Edit Pokemon Details"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
