@@ -5,7 +5,7 @@
     android:id="@+id/edit_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#989191"
+    android:background="#FFF"
     tools:context=".EditScreen">
 
     <Switch
@@ -32,10 +32,10 @@
 
         <RadioButton
             android:id="@+id/rb_mind"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="mind" />
+            android:text="Name" />
 
         <RadioButton
             android:id="@+id/rb_electricity"
@@ -45,7 +45,7 @@
 
         <RadioButton
             android:id="@+id/rb_water"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="water" />
 

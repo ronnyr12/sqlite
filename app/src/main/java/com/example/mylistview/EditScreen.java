@@ -27,8 +27,8 @@ public class EditScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_screen);
-
         getSupportActionBar().hide(); //<< this
+
         Intent intent = getIntent();
 
         String pokemonName = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_NAME);

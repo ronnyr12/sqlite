@@ -11,9 +11,9 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 public class SplashScreen extends AppCompatActivity {
+
     Button btnEnter;
     SQLiteDatabase db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class SplashScreen extends AppCompatActivity {
 
         createDatabase();
         addALLToDb();
+
         btnEnter = findViewById(R.id.enter);
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +36,10 @@ public class SplashScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * custom method
+     * one time database creation
+     */
     public void createDatabase(){
 
         db.execSQL("create table if not exists tbl_pokemon(name text, power integer, type text)");
