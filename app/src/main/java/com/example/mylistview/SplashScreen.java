@@ -20,11 +20,14 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        //phase 1 - init adb refernce to our database
         db = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
-
+        //the 1st creation of database
         createDatabase();
+        //adds actual dat to our db
         addALLToDb();
+
         btnEnter = findViewById(R.id.btnEnter);
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,18 +38,29 @@ public class SplashScreen extends AppCompatActivity {
         });
     }
 
+    /**
+     * custom method
+     * one time database creation
+     */
     public void createDatabase(){
 
+        String createQuery = "create table if not exists tbl_pokemon(name text," +
+                " power integer, type text)";
 
-        db.execSQL("create table if not exists tbl_pokemon(name text, power integer, type text)");
+        db.execSQL(createQuery);
 
-       /* db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
-                " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
-    */
+        /*db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
+                " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+
+                " integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");*/
 
 
     }
 
+    /**
+     * custom method
+     * adds values to database
+     * creates in background objects of pokemons
+     */
     public void addALLToDb(){
         ArrayList<Pokemon>pokemonList =
                 new ArrayList<>();
@@ -72,6 +86,23 @@ public class SplashScreen extends AppCompatActivity {
         pokemonList.add(pk3);
         pokemonList.add(pk4);
         pokemonList.add(pk5);
+
+
+        for (Pokemon p: pokemonList) {
+            //db.execSQL("insert into tbl_pokemon values(picahu, 3000,mind)");
+
+            db.execSQL("insert into tbl_pokemon values("+p.getName()+", "+p.getPower()+","+p.getType()+")");
+        }
+
+        /*
+            foreach as a simple for loop
+
+            for (int i = 0; i < pokemonList.size(); i++) {
+            Pokemon p = pokemonList.get(i);
+            //add desire code
+           }
+         */
+
 
 
     }

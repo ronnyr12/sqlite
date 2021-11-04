@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
+        db = openOrCreateDatabase(Utils.DATABASE_NAME,
+                MODE_PRIVATE, null);
+
         Pokemon pk1 = new Pokemon("giglipuf",
                 500, "mind");
 
