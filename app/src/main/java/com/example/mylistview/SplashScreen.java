@@ -43,9 +43,16 @@ public class SplashScreen extends AppCompatActivity {
     public void createDatabase(){
 
         db.execSQL("create table if not exists tbl_pokemon(name text, power integer, type text)");
-
+        /* db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
+                " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
+        */
     }
 
+    /**
+     * custom method
+     * adds values to database
+     * creates in background objects of pokemons
+     */
     public void addALLToDb(){
         ArrayList<Pokemon> pokemons = new ArrayList<>();
 
@@ -70,6 +77,10 @@ public class SplashScreen extends AppCompatActivity {
         pokemons.add(pk7);
         pokemons.add(pk8);
         pokemons.add(pk9);
+
+        for(Pokemon i : pokemons){
+            db.execSQL("insert into tbl_pokemon values( i.getName(), i.getPower(),i.getType())");
+        }
 
 
     }
