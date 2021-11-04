@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         lv = findViewById(R.id.lv_pokemon);
-        adapter = new PokemonAdapter(pokemonList,
-                MainActivity.this);
+        adapter = new PokemonAdapter(pokemonList, MainActivity.this);
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
