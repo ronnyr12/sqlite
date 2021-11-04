@@ -25,7 +25,7 @@ public class SplashScreen extends AppCompatActivity {
 
         createDatabase();
         addALLToDb();
-        btnEnter = findViewById(R.id.btnEnter);
+        btnEnter = findViewById(R.id.enter);
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,41 +37,34 @@ public class SplashScreen extends AppCompatActivity {
 
     public void createDatabase(){
 
-
         db.execSQL("create table if not exists tbl_pokemon(name text, power integer, type text)");
-
-       /* db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
-                " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
-    */
-
 
     }
 
     public void addALLToDb(){
-        ArrayList<Pokemon>pokemonList =
-                new ArrayList<>();
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
 
-        Pokemon pk1 = new Pokemon("giglipuf",
-                        500, "mind");
+        Pokemon pk0 = new Pokemon("Charmander", 1400, "Fire");
+        Pokemon pk1 = new Pokemon("Pikachu", 2350, "Electric");
+        Pokemon pk2 = new Pokemon("Charizard", 2700, "Fire");
+        Pokemon pk3 = new Pokemon("Eevee", 1800, "Normal");
+        Pokemon pk4 = new Pokemon("Snorlax", 2100, "Normal");
+        Pokemon pk5 = new Pokemon("Squirtle", 1600, "Water");
+        Pokemon pk6 = new Pokemon("Bulbasaur", 800, "Grass");
+        Pokemon pk7 = new Pokemon("Lucario", 1700, "Wind");
+        Pokemon pk8 = new Pokemon("Jigglypuff", 500, "Fairy");
+        Pokemon pk9 = new Pokemon("Ditto", 400, "Fairy");
 
-        Pokemon pk2 = new Pokemon("psyduck",
-                1500, "mind");
-
-        Pokemon pk3 = new Pokemon("aggron",
-                2000, "rock");
-
-        Pokemon pk4 = new Pokemon("picachu",
-                3500, "electricity");
-
-        Pokemon pk5 = new Pokemon("riyachu",
-                5500, "electricity");
-
-        pokemonList = new ArrayList<Pokemon>();
-        pokemonList.add(pk1);
-        pokemonList.add(pk2);
-        pokemonList.add(pk3);
-        pokemonList.add(pk4);
-        pokemonList.add(pk5);
+        pokemons.add(pk0);
+        pokemons.add(pk1);
+        pokemons.add(pk2);
+        pokemons.add(pk3);
+        pokemons.add(pk4);
+        pokemons.add(pk5);
+        pokemons.add(pk6);
+        pokemons.add(pk7);
+        pokemons.add(pk8);
+        pokemons.add(pk9);
 
 
     }

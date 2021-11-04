@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,13 +39,16 @@ public class PokemonAdapter extends BaseAdapter {
         Pokemon tmp = pokemons.get(position);
         convertView = LayoutInflater.from(context).inflate(R.layout.row_list_pokemon, null);
 
-        TextView tv_type = convertView.findViewById(R.id.tv_type);
-        TextView tv_name = convertView.findViewById(R.id.tv_name);
-        TextView tv_power = convertView.findViewById(R.id.tv_power);
+        TextView tv_type = convertView.findViewById(R.id.type);
+        TextView tv_name = convertView.findViewById(R.id.name);
+        TextView tv_power = convertView.findViewById(R.id.power);
+        ImageView pic = convertView.findViewById(R.id.picture);
 
         tv_type.setText(tmp.getType());
         tv_name.setText(tmp.getName());
         tv_power.setText(String.valueOf(tmp.getPower()));
+        Context c = context.getApplicationContext();
+        pic.setImageResource(c.getResources().getIdentifier(tv_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()));
 
         return convertView;
     }
