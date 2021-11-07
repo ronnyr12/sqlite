@@ -25,6 +25,7 @@ public class SplashScreen extends AppCompatActivity {
 
         Utils.createTables(db);
         Utils.addALLToDb(db);
+
         btnEnter = findViewById(R.id.btnEnter);
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
