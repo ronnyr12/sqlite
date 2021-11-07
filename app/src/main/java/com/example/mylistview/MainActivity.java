@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     PokemonAdapter adapter;
 
     SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

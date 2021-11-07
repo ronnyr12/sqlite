@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class SplashScreen extends AppCompatActivity {
+ public class SplashScreen extends AppCompatActivity {
     Button btnEnter;
     SQLiteDatabase db;
 
@@ -35,24 +35,24 @@ public class SplashScreen extends AppCompatActivity {
         });
     }
 
-    public void createDatabase(){
+    public void createDatabase() {
 
 
         db.execSQL("create table if not exists tbl_pokemon(name text, power integer, type text)");
 
-       /* db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
-                " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
-    */
+        db.execSQL("create table if not exists "
+                + Utils.TABLE_NAME_POKEMON +
+                " (" + Utils.TABLE_POKEMON_COL_NAME + " text, " + Utils.TABLE_POKEMON_COL_POWER + " integer, " + Utils.TABLE_POKEMON_COL_TYPE + " text)");
 
 
     }
 
-    public void addALLToDb(){
-        ArrayList<Pokemon>pokemonList =
+    public void addALLToDb() {
+        ArrayList<Pokemon> pokemonList =
                 new ArrayList<>();
 
         Pokemon pk1 = new Pokemon("giglipuf",
-                        500, "mind");
+                500, "mind");
 
         Pokemon pk2 = new Pokemon("psyduck",
                 1500, "mind");
@@ -73,10 +73,10 @@ public class SplashScreen extends AppCompatActivity {
         pokemonList.add(pk4);
         pokemonList.add(pk5);
 
-        for (Pokemon p: pokemonList) {
+        for ( Pokemon p : pokemonList ) {
             //db.execSQL("insert into tbl_pokemon values(picahu, 3000,mind)");
 
-            db.execSQL("insert into tbl_pokemon values('p.getName()', 'p.getPower()','p.getType()')");
+            db.execSQL("insert into tbl_pokemon values('"+p.getName()+"', '"+p.getPower()+"','"+p.getType()+"')");
         }
 
         /*
@@ -90,4 +90,4 @@ public class SplashScreen extends AppCompatActivity {
 
     }
 
-}
+ }
