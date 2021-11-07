@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     PokemonAdapter adapter;
 
     SQLiteDatabase db;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, EditScreen.class);
                 intent.putExtra(Utils.INTENT_KEY_POKEMON_NAME, tmp.getName());
                 startActivity(intent);
+            }
+        });
+
+        fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AddPokemon_Screen.class));
             }
         });
     }

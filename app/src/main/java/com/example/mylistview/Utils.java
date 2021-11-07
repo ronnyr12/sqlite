@@ -19,9 +19,9 @@ public class Utils {
                 + Utils.TABLE_NAME_POKEMON +
                 "(" + Utils.TABLE_POKEMON_COL_NAME + " text, " + Utils.TABLE_POKEMON_COL_POWER + " integer, " + Utils.TABLE_POKEMON_COL_TYPE + " text)");
     }
-    public static void addALLToDb(SQLiteDatabase db) {
 
-
+    public static void addALLToDb(SQLiteDatabase db){
+        db.execSQL("delete from "+Utils.TABLE_NAME_POKEMON);
 
         Pokemon pk1 = new Pokemon("giglipuf",
                 500, "mind");
