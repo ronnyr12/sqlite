@@ -17,14 +17,14 @@ public class Utils {
 
     public static void createTables(SQLiteDatabase db){
 
-        //db.execSQL("create table if not exists tbl_pokemon(name text, power integer, type text)");
+        //db.execSQL("create table if not exists tbl_pokemon(name text, et_power integer, et_type text)");
 
         db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
                 " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
     }
 
     public static void addALLToDb(SQLiteDatabase db){
-
+        db.execSQL("delete from "+Utils.TABLE_NAME_POKEMON);
         ArrayList<Pokemon> pokemons = new ArrayList<>();
 
         Pokemon pk0 = new Pokemon("Charmander", 1400, "Fire");

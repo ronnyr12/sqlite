@@ -10,6 +10,9 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     PokemonAdapter adapter;
 
     SQLiteDatabase db;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         db = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
         pokemonList = new ArrayList<>();
+
 
         Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
         while(cursor.moveToNext()){
@@ -51,5 +56,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,
+                        AddPokemon_Screen.class));
+            }
+        });
+
+
     }
+
+
+
 }
