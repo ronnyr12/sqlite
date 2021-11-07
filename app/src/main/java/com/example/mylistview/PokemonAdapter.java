@@ -48,7 +48,12 @@ public class PokemonAdapter extends BaseAdapter {
         tv_name.setText(tmp.getName());
         tv_power.setText(String.valueOf(tmp.getPower()));
         Context c = context.getApplicationContext();
-        pic.setImageResource(c.getResources().getIdentifier(tv_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()));
+        if(c.getResources().getIdentifier(tv_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()) != 0){
+            pic.setImageResource(c.getResources().getIdentifier(tv_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()));
+        }
+        else{
+            pic.setImageResource(R.drawable.poca_ball);
+        }
 
         return convertView;
     }
