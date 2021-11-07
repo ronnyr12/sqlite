@@ -28,16 +28,16 @@ public class MainActivity extends AppCompatActivity {
 
         pokemonList = new ArrayList<Pokemon>();
 
-        Cursor cursor = db.rawQuery("select * from" + Utils.TABLE_NAME_POKEMON);
-        while ( cursor.moveToNext() ){
+        Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
+        while(cursor.moveToNext()){
             String name = cursor.getString(0);
             int power = cursor.getInt(1);
             String type = cursor.getString(2);
 
             Pokemon pokemon = new Pokemon(name, power, type);
-
-
+            pokemonList.add(pokemon);
         }
+
 
         lv = findViewById(R.id.lv_pokemon);
         adapter = new PokemonAdapter(pokemonList, MainActivity.this);

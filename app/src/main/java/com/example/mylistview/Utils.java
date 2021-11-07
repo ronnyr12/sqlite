@@ -21,6 +21,8 @@ public class Utils {
     }
     public static void addALLToDb(SQLiteDatabase db) {
 
+
+
         Pokemon pk1 = new Pokemon("giglipuf",
                 500, "mind");
 
