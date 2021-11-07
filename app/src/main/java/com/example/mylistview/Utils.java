@@ -24,7 +24,7 @@ public class Utils {
     }
 
     public static void addALLToDb(SQLiteDatabase db){
-
+        db.execSQL("delete from "+Utils.TABLE_NAME_POKEMON);
 
         Pokemon pk1 = new Pokemon("giglipuf",
                 500, "mind");
