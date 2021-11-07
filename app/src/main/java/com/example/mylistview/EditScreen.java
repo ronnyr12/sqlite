@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -23,10 +24,14 @@ public class EditScreen extends AppCompatActivity {
     Button btn_submit;
     TextView tv_edit_name;
 
+    SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_screen);
+
+        db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
 
         getSupportActionBar().hide(); //<< this
         Intent intent = getIntent();
