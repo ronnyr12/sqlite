@@ -79,7 +79,7 @@ public class SplashScreen extends AppCompatActivity {
         pokemons.add(pk9);
 
         for(Pokemon i : pokemons){
-            db.execSQL("insert into tbl_pokemon values( i.getName(), i.getPower(),i.getType())");
+            db.execSQL("insert into tbl_pokemon values('" + i.getName() + "', " + i.getPower() + ", '" + i.getType() + "')");
         }
 
 
