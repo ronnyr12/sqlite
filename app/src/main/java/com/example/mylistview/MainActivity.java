@@ -18,13 +18,15 @@ public class MainActivity extends AppCompatActivity {
     PokemonAdapter adapter;
 
     SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = openOrCreateDatabase(Utils.DATABASE_NAME,
+        db = openOrCreateDatabase("db_pokemon_app",
                 MODE_PRIVATE, null);
+
 
         Pokemon pk1 = new Pokemon("giglipuf",
                 500, "mind");
