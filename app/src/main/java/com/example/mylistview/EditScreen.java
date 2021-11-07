@@ -33,26 +33,25 @@ public class EditScreen extends AppCompatActivity {
                 MODE_PRIVATE, null);
 
         getSupportActionBar().hide(); //<< this
-        /*Intent intent = getIntent();
+        Intent intent = getIntent();
 
         String pokemonName = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_NAME);
-*/
+
         rg_type = findViewById(R.id.rg_type);
         tv_edit_name = findViewById(R.id.tv_edit_name);
-        //tv_edit_name.setText(pokemonName);
+        tv_edit_name.setText(pokemonName);
         btn_submit = findViewById(R.id.btn_submit);
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*// get selected radio button from radioGroup
+                // get selected radio button from radioGroup
                 int selectedId = rg_type.getCheckedRadioButtonId();
 
                 // find the radiobutton by returned id
                 radioButton = findViewById(selectedId);
 
                 Toast.makeText(EditScreen.this,
-                        radioButton.getText(),
-                        Toast.LENGTH_LONG).show();*/
+                        radioButton.getText(), Toast.LENGTH_LONG).show();
             }
         });
         edit_layout = findViewById(R.id.edit_layout);
