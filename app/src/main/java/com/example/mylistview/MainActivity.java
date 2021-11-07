@@ -33,6 +33,28 @@ public class MainActivity extends AppCompatActivity {
         pokemonList = new ArrayList<>();
 
 
+        updateList();
+
+        fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,
+                        AddPokemon_Screen.class));
+            }
+        });
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        updateList();
+    }
+
+    private void updateList() {
+
+        pokemonList.clear();
         Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
         while(cursor.moveToNext()){
             String name = cursor.getString(0);
@@ -56,19 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        fab = findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,
-                        AddPokemon_Screen.class));
-            }
-        });
-
-
     }
-
 
 
 }
