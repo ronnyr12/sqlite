@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
-
-        pokemonList = new ArrayList<Pokemon>();
+        db = openOrCreateDatabase(Utils.DATABASE_NAME,
+                MODE_PRIVATE, null);
+        pokemonList = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
         while(cursor.moveToNext()){
