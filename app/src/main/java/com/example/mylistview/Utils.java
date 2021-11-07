@@ -50,16 +50,5 @@ public class Utils {
         //  db.execSQL("insert into tbl_pokemon values('"+p.getName()+"', 100,'"+p.getType()+"')");
 
         }
-
-
-        /*
-            foreach as a simple for loop
-
-            for (int i = 0; i < pokemonList.size(); i++) {
-            Pokemon p = pokemonList.get(i);
-            //add desire code
-           }
-         */
-
     }
 }
