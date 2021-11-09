@@ -12,6 +12,8 @@ public class Utils {
     final static String TABLE_POKEMON_COL_TYPE = "type";
 
     final static String INTENT_KEY_POKEMON_NAME = "pokemon_name";
+    final static String INTENT_KEY_POKEMON_POWER = "pokemon_power";
+    final static String INTENT_KEY_POKEMON_TYPE = "pokemon_type";
 
     public static void createTables(SQLiteDatabase db){
         // TODO: 07.11.2021 implement create database ;

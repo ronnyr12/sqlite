@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 Pokemon tmp = pokemonList.get(position);
                 Intent intent = new Intent(MainActivity.this, EditScreen.class);
                 intent.putExtra(Utils.INTENT_KEY_POKEMON_NAME, tmp.getName());
+                intent.putExtra(Utils.INTENT_KEY_POKEMON_TYPE, tmp.getType());
                 startActivity(intent);
             }
         });

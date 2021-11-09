@@ -50,7 +50,7 @@ public class AddPokemon_Screen extends AppCompatActivity {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(AddPokemon_Screen.this, MainActivity.class));
             }
         });
     }

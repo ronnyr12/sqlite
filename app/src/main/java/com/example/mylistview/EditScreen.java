@@ -36,17 +36,20 @@ public class EditScreen extends AppCompatActivity {
         Intent intent = getIntent();
 
         String pokemonName = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_NAME);
+        String pokemonType = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_TYPE);
 
         rg_type = findViewById(R.id.rg_type);
         tv_edit_name = findViewById(R.id.tv_edit_name);
-        tv_edit_name.setText(pokemonName);
         btn_submit = findViewById(R.id.btn_submit);
+
+        tv_edit_name.setText(pokemonName);
+        //setTypeRButtonChecked(pokemonType);
+
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // get selected radio button from radioGroup
                 int selectedId = rg_type.getCheckedRadioButtonId();
-
                 // find the radiobutton by returned id
                 radioButton = findViewById(selectedId);
 
@@ -69,5 +72,15 @@ public class EditScreen extends AppCompatActivity {
 
 
 
+    }
+    public void setTypeRButtonChecked(String pokemonType){
+        if ( pokemonType == "electricity" ){
+            // get selected radio button from radioGroup
+            int selectedId = 0;
+
+            // find the radiobutton by returned id
+            radioButton = findViewById(selectedId);
+            rg_type.performClick();
+        }
     }
 }
