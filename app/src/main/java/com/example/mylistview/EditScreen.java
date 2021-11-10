@@ -43,16 +43,17 @@ public class EditScreen extends AppCompatActivity {
         btn_submit = findViewById(R.id.btn_submit);
 
         tv_edit_name.setText(pokemonName);
-        //setTypeRButtonChecked(pokemonType);
+        setTypeRButtonChecked(pokemonType);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // get selected radio button from radioGroup
-                int selectedId = rg_type.getCheckedRadioButtonId();
+                int selectedId = 0;
+                selectedId = rg_type.getCheckedRadioButtonId();
                 // find the radiobutton by returned id
                 radioButton = findViewById(selectedId);
-
+                System.out.println(selectedId);
                 Toast.makeText(EditScreen.this,
                         radioButton.getText(), Toast.LENGTH_LONG).show();
             }
@@ -74,13 +75,9 @@ public class EditScreen extends AppCompatActivity {
 
     }
     public void setTypeRButtonChecked(String pokemonType){
-        if ( pokemonType == "electricity" ){
-            // get selected radio button from radioGroup
-            int selectedId = 0;
-
-            // find the radiobutton by returned id
-            radioButton = findViewById(selectedId);
-            rg_type.performClick();
-        }
+        String str = "rg_" + pokemonType;
+        int n = str;
+        RadioButton rg_actual_type = findViewById(n);
+        rg_actual_type.setChecked(true);
     }
 }
