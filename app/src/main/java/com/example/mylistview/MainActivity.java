@@ -46,12 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        updateList();
-    }
-
     private void updateList() {
 
         pokemonList.clear();
