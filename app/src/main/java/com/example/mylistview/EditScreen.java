@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
@@ -18,7 +19,13 @@ import android.widget.Toast;
 public class EditScreen extends AppCompatActivity {
     Switch swtchdark;
     ConstraintLayout edit_layout;
+
     RadioGroup rg_type;
+
+    RadioButton rb_mind;
+    RadioButton rb_electricity;
+    RadioButton rb_water;
+
     RadioButton radioButton;
     Button btn_submit;
     TextView tv_edit_name;
@@ -42,8 +49,9 @@ public class EditScreen extends AppCompatActivity {
         tv_edit_name = findViewById(R.id.tv_edit_name);
         btn_submit = findViewById(R.id.btn_submit);
 
+
         tv_edit_name.setText(pokemonName);
-        setTypeRButtonChecked(pokemonType);
+        //setTypeRButtonChecked(pokemonType);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,14 +78,21 @@ public class EditScreen extends AppCompatActivity {
                     edit_layout.setBackgroundColor(Color.WHITE);
             }
         });
-
-
-
     }
+
     public void setTypeRButtonChecked(String pokemonType){
-        String str = "rg_" + pokemonType;
-        int n = str;
-        RadioButton rg_actual_type = findViewById(n);
-        rg_actual_type.setChecked(true);
+        rb_mind = findViewById(R.id.rb_mind);
+        rb_electricity = findViewById(R.id.rb_electricity);
+        rb_water = findViewById(R.id.rb_water);
+
+        if(pokemonType == "mind"){
+            rb_mind.setChecked(true);
+        }
+        if(pokemonType == "electricity"){
+            rb_electricity.setChecked(true);
+        }
+        if(pokemonType == "water"){
+            rb_water.setChecked(true);
+        }
     }
 }
