@@ -2,7 +2,6 @@ package com.example.mylistview;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +22,8 @@ public class ChooseScreen extends AppCompatActivity {
         });
 
         btn_trainers = findViewById(R.id.btn_trainers);
-        btn_trainers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChooseScreen.this, MainActivityTrainer.class);
-                startActivity(intent);
-            }
+        btn_trainers.setOnClickListener(v ->{
+                startActivity(new Intent(ChooseScreen.this, MainActivityTrainer.class));
         });
     }
 }

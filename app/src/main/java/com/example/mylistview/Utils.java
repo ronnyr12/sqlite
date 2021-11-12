@@ -83,7 +83,7 @@ class UtilsTrainer {
 
         Trainer tr4 = new Trainer("Someone", "0541234567", 123456789);
 
-        Trainer tr5 = new Trainer("Dr. Who", "0524545486", 562021);
+        Trainer tr5 = new Trainer("Dr.  Who", "0524545486", 562021);
 
 
         ArrayList<Trainer> trainerList = new ArrayList<>();
