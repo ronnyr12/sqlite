@@ -1,40 +1,37 @@
 package com.example.mylistview;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
- public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
     Button btnEnter;
-    SQLiteDatabase db;
-
+    SQLiteDatabase db_pokemon;
+    SQLiteDatabase db_trainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        db = openOrCreateDatabase(Utils.DATABASE_NAME,
+        db_pokemon = openOrCreateDatabase(UtilsPokemon.DATABASE_NAME,
                 MODE_PRIVATE, null);
 
-        Utils.createTables(db);
-        Utils.addALLToDb(db);
+        UtilsPokemon.createTables(db_pokemon);
+        UtilsPokemon.addALLToDb(db_pokemon);
+
+        db_trainer = openOrCreateDatabase(UtilsTrainer.DATABASE_NAME,
+                MODE_PRIVATE, null);
+
+        UtilsPokemon.createTables(db_trainer);
+        UtilsPokemon.addALLToDb(db_trainer);
+
 
         btnEnter = findViewById(R.id.btnEnter);
-        btnEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SplashScreen.this,
-                        MainActivity.class));
-            }
-        });
+        btnEnter.setOnClickListener(v -> startActivity(new Intent(SplashScreen.this, ChooseScreen.class)));
+
     }
-
-
  }

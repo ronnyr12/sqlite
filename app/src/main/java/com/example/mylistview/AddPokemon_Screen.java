@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AddPokemon_Screen extends AppCompatActivity {
     EditText et_name, et_type, et_power;
     Button btn_save, btn_back;
-    SQLiteDatabase db;
+    SQLiteDatabase db_pokemon;
 
 
     @Override
@@ -27,7 +27,7 @@ public class AddPokemon_Screen extends AppCompatActivity {
      * custom method - initialize values of our activity
      */
     private void init() {
-        db = openOrCreateDatabase(Utils.DATABASE_NAME,
+        db_pokemon = openOrCreateDatabase(UtilsPokemon.DATABASE_NAME,
             MODE_PRIVATE, null);
 
         et_name = findViewById(R.id.et_name);
@@ -40,17 +40,16 @@ public class AddPokemon_Screen extends AppCompatActivity {
             int power = Integer.parseInt(et_power.getText().toString());
             String type = et_type.getText().toString();
 
-            db.execSQL("insert into tbl_pokemon values('" +name+ "'," +power+ ",'" +type+ "')");
+            db_pokemon.execSQL("insert into tbl_pokemon values('" +name+ "'," +power+ ",'" +type+ "')");
 
-            startActivity(new Intent(AddPokemon_Screen.this, MainActivity.class));
-
+            startActivity(new Intent(AddPokemon_Screen.this, MainActivityPokemon.class));
         });
 
         btn_back = findViewById(R.id.btn_back);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddPokemon_Screen.this, MainActivity.class));
+                startActivity(new Intent(AddPokemon_Screen.this, MainActivityPokemon.class));
             }
         });
     }

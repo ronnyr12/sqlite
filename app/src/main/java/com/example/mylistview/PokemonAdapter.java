@@ -38,12 +38,12 @@ public class PokemonAdapter extends BaseAdapter {
         Pokemon tmp = pokemons.get(position);
         convertView = LayoutInflater.from(context).inflate(R.layout.row_list_pokemon, null);
 
+        TextView tv_pokemon_name = convertView.findViewById(R.id.tv_pokemon_name);
         TextView tv_type = convertView.findViewById(R.id.tv_type);
-        TextView tv_name = convertView.findViewById(R.id.tv_name);
         TextView tv_power = convertView.findViewById(R.id.tv_power);
 
         tv_type.setText(tmp.getType());
-        tv_name.setText(tmp.getName());
+        tv_pokemon_name.setText(tmp.getName());
         tv_power.setText(String.valueOf(tmp.getPower()));
 
         return convertView;

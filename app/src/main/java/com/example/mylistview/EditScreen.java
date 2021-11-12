@@ -1,20 +1,19 @@
 package com.example.mylistview;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class EditScreen extends AppCompatActivity {
     Switch swtchdark;
@@ -30,20 +29,20 @@ public class EditScreen extends AppCompatActivity {
     Button btn_submit;
     TextView tv_edit_name;
 
-    SQLiteDatabase db;
+    SQLiteDatabase db_pokemon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_screen);
 
-        db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
+        db_pokemon = openOrCreateDatabase(UtilsPokemon.DATABASE_NAME, MODE_PRIVATE, null);
 
         getSupportActionBar().hide(); //<< this
         Intent intent = getIntent();
 
-        String pokemonName = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_NAME);
-        String pokemonType = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_TYPE);
+        String pokemonName = intent.getStringExtra(UtilsPokemon.INTENT_KEY_POKEMON_NAME);
+        String pokemonType = intent.getStringExtra(UtilsPokemon.INTENT_KEY_POKEMON_TYPE);
 
         rg_type = findViewById(R.id.rg_type);
         tv_edit_name = findViewById(R.id.tv_edit_name);
