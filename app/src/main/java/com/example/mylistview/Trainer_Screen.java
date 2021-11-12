@@ -12,6 +12,10 @@ public class Trainer_Screen extends AppCompatActivity {
     TextView tv_phone;
     TextView tv_id;
 
+    TextView name;
+    TextView phone;
+    TextView id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,15 +25,18 @@ public class Trainer_Screen extends AppCompatActivity {
         tv_phone = findViewById(R.id.tv_phone);
         tv_id = findViewById(R.id.tv_id);
 
+        name = findViewById(R.id.name);
+        phone = findViewById(R.id.phone);
+        id = findViewById(R.id.id);
+
         Intent intent = getIntent();
-        String name = intent.getStringExtra(UtilsTrainer.INTENT_KEY_TRAINER_NAME);
-        String phone = intent.getStringExtra(UtilsTrainer.INTENT_KEY_TRAINER_PHONE);
+        String trainerName = intent.getStringExtra(UtilsTrainer.INTENT_KEY_TRAINER_NAME);
+        String trainerPhone = intent.getStringExtra(UtilsTrainer.INTENT_KEY_TRAINER_PHONE);
         int num = intent.getIntExtra(UtilsTrainer.INTENT_KEY_TRAINER_ID, 0);
-        String id = "" + num;
+        String trainerId = "" + num;
 
-        textView_name.setText(textView_name.getText() + name);
-        tv_phone.setText(tv_phone.getText() + phone);
-        tv_id.setText(tv_id.getText() + id);
-
+        name.setText(trainerName);
+        phone.setText(trainerPhone);
+        id.setText(trainerId);
     }
 }

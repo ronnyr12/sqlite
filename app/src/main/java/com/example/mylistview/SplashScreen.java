@@ -26,8 +26,8 @@ public class SplashScreen extends AppCompatActivity {
         db_trainer = openOrCreateDatabase(UtilsTrainer.DATABASE_NAME,
                 MODE_PRIVATE, null);
 
-        UtilsPokemon.createTables(db_trainer);
-        UtilsPokemon.addALLToDb(db_trainer);
+        UtilsTrainer.createTables(db_trainer);
+        UtilsTrainer.addALLToDb(db_trainer);
 
 
         btnEnter = findViewById(R.id.btnEnter);

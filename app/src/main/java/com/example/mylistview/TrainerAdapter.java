@@ -39,7 +39,7 @@ public class TrainerAdapter extends BaseAdapter {
         convertView = LayoutInflater.from(context).inflate(R.layout.row_list_trainer, null);
 
         TextView tv_trainer_name = convertView.findViewById(R.id.tv_trainer_name);
-
+        tv_trainer_name.setText(tmp.getName());
         return convertView;
     }
 }

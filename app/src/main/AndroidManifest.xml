@@ -13,7 +13,7 @@
             android:name=".Trainer_Screen"
             android:exported="false" />
         <activity
-            android:name=".MainActivitytrainer"
+            android:name=".MainActivityTrainer"
             android:exported="false" />
         <activity
             android:name=".ChooseScreen"

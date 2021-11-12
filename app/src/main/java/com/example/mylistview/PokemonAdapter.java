@@ -42,8 +42,8 @@ public class PokemonAdapter extends BaseAdapter {
         TextView tv_type = convertView.findViewById(R.id.tv_type);
         TextView tv_power = convertView.findViewById(R.id.tv_power);
 
-        tv_type.setText(tmp.getType());
         tv_pokemon_name.setText(tmp.getName());
+        tv_type.setText(tmp.getType());
         tv_power.setText(String.valueOf(tmp.getPower()));
 
         return convertView;
