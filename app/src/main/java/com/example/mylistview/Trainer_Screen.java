@@ -30,6 +30,7 @@ public class Trainer_Screen extends AppCompatActivity {
         id = findViewById(R.id.id);
 
         Intent intent = getIntent();
+
         String trainerName = intent.getStringExtra(UtilsTrainer.INTENT_KEY_TRAINER_NAME);
         String trainerPhone = intent.getStringExtra(UtilsTrainer.INTENT_KEY_TRAINER_PHONE);
         int num = intent.getIntExtra(UtilsTrainer.INTENT_KEY_TRAINER_ID, 0);
