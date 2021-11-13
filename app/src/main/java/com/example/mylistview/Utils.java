@@ -47,7 +47,7 @@ class UtilsPokemon {
         pokemonList.add(pk4);
         pokemonList.add(pk5);
 
-        for ( Pokemon p : pokemonList ) {
+        for( Pokemon p : pokemonList ) {
             db_pokemon.execSQL("insert into tbl_pokemon values('"+p.getName()+"', '"+p.getPower()+"','"+p.getType()+"')");
         //  db_pokemon.execSQL("insert into tbl_pokemon values('"+p.getName()+"', 100,'"+p.getType()+"')");
         }
@@ -85,7 +85,6 @@ class UtilsTrainer {
 
         Trainer tr5 = new Trainer("Dr.  Who", "0524545486", 562021);
 
-
         ArrayList<Trainer> trainerList = new ArrayList<>();
         trainerList.add(tr1);
         trainerList.add(tr2);
@@ -93,7 +92,7 @@ class UtilsTrainer {
         trainerList.add(tr4);
         trainerList.add(tr5);
 
-        for ( Trainer tr : trainerList ) {
+        for( Trainer tr : trainerList ) {
             db_pokemon.execSQL("insert into tbl_trainer values('"+tr.getName()+"', '"+tr.getPhone()+"','"+tr.getId()+"')");
         }
     }
