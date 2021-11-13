@@ -11,7 +11,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 public class SplashScreen extends AppCompatActivity {
-    Button btnEnter;
+    Button btnEnter, btnEnter2;
     SQLiteDatabase db;
 
 
@@ -20,11 +20,12 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        db = openOrCreateDatabase(Utils.DATABASE_NAME,
-                MODE_PRIVATE, null);
+        db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
+        db = openOrCreateDatabase(Utils.DATABASE_TRAINERS_NAME, MODE_PRIVATE, null);
 
         Utils.createTables(db);
         Utils.addALLToDb(db);
+        Utils.addALLTrainersToDb(db);
 
         btnEnter = findViewById(R.id.btnEnter);
         btnEnter.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +33,14 @@ public class SplashScreen extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(SplashScreen.this,
                         MainActivity.class));
+            }
+        });
+        btnEnter2 = findViewById(R.id.btnEnter2);
+        btnEnter2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SplashScreen.this,
+                        TrainersActivity.class));
             }
         });
     }

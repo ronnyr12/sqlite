@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyListView">
         <activity
+            android:name=".TrainersInfo"
+            android:exported="true" />
+        <activity
+            android:name=".TrainersActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddPokemon_Screen"
             android:exported="false" />
         <activity
