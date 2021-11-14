@@ -1,13 +1,17 @@
 package com.example.mylistview;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Pokemon> pokemonList;
     ListView lv;
     PokemonAdapter adapter;
-
     SQLiteDatabase db;
     FloatingActionButton fab;
 
@@ -69,10 +72,25 @@ public class MainActivity extends AppCompatActivity {
                 Pokemon tmp = pokemonList.get(position);
                 Intent intent = new Intent(MainActivity.this, EditScreen.class);
                 intent.putExtra(Utils.INTENT_KEY_POKEMON_NAME, tmp.getName());
+                intent.putExtra("column", position+1);
                 startActivity(intent);
             }
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.reset_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.reset){
+            Utils.insertAll(db);
+            startActivity(getIntent());
+        }
+        return true;
+    }
 }
