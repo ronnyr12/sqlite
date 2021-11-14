@@ -37,7 +37,7 @@ public class PokemonAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Pokemon tmp = pokemons.get(position);
-        convertView = LayoutInflater.from(context).inflate(R.layout.row_list_pokemon, null);
+        convertView = LayoutInflater.from(context).inflate(R.layout.row_list, null);
 
         TextView tv_type = convertView.findViewById(R.id.type);
         TextView tv_name = convertView.findViewById(R.id.name);

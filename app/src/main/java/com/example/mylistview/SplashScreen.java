@@ -10,9 +10,9 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnEnter;
+    Button btn_pk, btn_tr;
     SQLiteDatabase db;
 
     @Override
@@ -20,20 +20,29 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        db = openOrCreateDatabase(Utils.DATABASE_NAME,
-                MODE_PRIVATE, null);
+        db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
 
         Utils.createTables(db);
         Utils.addALLToDb(db);
 
-        btnEnter = findViewById(R.id.enter);
-        btnEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SplashScreen.this,
-                        MainActivity.class));
-            }
-        });
+        btn_pk = findViewById(R.id.pokemons);
+        btn_tr = findViewById(R.id.trainers);
+
+        btn_pk.setOnClickListener(this);
+        btn_tr.setOnClickListener(this);
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+        switch (view.getId()){
+            case R.id.pokemons:
+                intent.putExtra("tbl_name", "tbl_pokemon");
+                break;
+            case R.id.trainers:
+                intent.putExtra("tbl_name", "tbl_trainer");
+                break;
+        }
+        startActivity(intent);
+    }
 }

@@ -22,6 +22,8 @@ public class Utils {
 
         db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
                 " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
+
+        db.execSQL("create table if not exists tbl_trainer(name text, phone text, id integer)");
     }
 
     public static void addALLToDb(SQLiteDatabase db){
@@ -31,9 +33,9 @@ public class Utils {
         if (cur != null && cur.moveToFirst()) {
             empty = (cur.getInt (0) == 0);
         }
-        cur.close();
 
-        if(empty){
+
+        if(empty) {
             ArrayList<Pokemon> pokemons = new ArrayList<>();
 
             Pokemon pk0 = new Pokemon("Charmander", 1400, "Fire");
@@ -58,12 +60,38 @@ public class Utils {
             pokemons.add(pk8);
             pokemons.add(pk9);
 
-            for (Pokemon p: pokemons) {
-                db.execSQL("insert into tbl_pokemon values('"+p.getName()+"',"+p.getPower()+",'"+p.getType()+"')");
+            for (Pokemon p : pokemons) {
+                db.execSQL("insert into tbl_pokemon values('" + p.getName() + "'," + p.getPower() + ",'" + p.getType() + "')");
             }
         }
 
+        boolean trainers_empty = true;
+        cur = db.rawQuery("SELECT COUNT(*) FROM " + "tbl_trainer", null);
+        if (cur != null && cur.moveToFirst()) {
+            trainers_empty = (cur.getInt (0) == 0);
+        }
+
+        if(trainers_empty){
+            ArrayList<Trainer> trainers = new ArrayList<>();
+
+            Trainer t0 = new Trainer("Ashe", "100000", 10);
+            Trainer t1 = new Trainer("Muradik", "111111", 20);
+            Trainer t2 = new Trainer("Roni", "222222", 30);
+            Trainer t3 = new Trainer("Rafael", "333333", 40);
+            trainers.add(t0);
+            trainers.add(t1);
+            trainers.add(t2);
+            trainers.add(t3);
+
+            for(Trainer t : trainers){
+                db.execSQL("insert into tbl_trainer values('"+t.getName()+"',"+t.getPhone()+","+t.getId()+")");
+            }
+        }
+
+            cur.close();
     }
+
+
     public static void insertAll(SQLiteDatabase db){
 
         db.execSQL("delete from " + Utils.TABLE_NAME_POKEMON);
@@ -94,6 +122,23 @@ public class Utils {
 
         for (Pokemon p: pokemons) {
             db.execSQL("insert into tbl_pokemon values('"+p.getName()+"',"+p.getPower()+",'"+p.getType()+"')");
+        }
+
+        db.execSQL("delete from tbl_trainer");
+
+        ArrayList<Trainer> trainers = new ArrayList<>();
+
+        Trainer t0 = new Trainer("Ashe", "100000", 10);
+        Trainer t1 = new Trainer("Muradik", "111111", 20);
+        Trainer t2 = new Trainer("Roni", "222222", 30);
+        Trainer t3 = new Trainer("Rafael", "333333", 40);
+        trainers.add(t0);
+        trainers.add(t1);
+        trainers.add(t2);
+        trainers.add(t3);
+
+        for(Trainer t : trainers){
+            db.execSQL("insert into tbl_trainer values('"+t.getName()+"',"+t.getPhone()+","+t.getId()+")");
         }
     }
 }

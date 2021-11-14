@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyListView">
         <activity
-            android:name=".AddPokemon_Screen"
+            android:name=".Add_Screen"
             android:exported="false" />
         <activity
             android:name=".EditScreen"

@@ -1,6 +1,5 @@
 package com.example.mylistview;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,16 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Pokemon> pokemonList;
     ListView lv;
-    PokemonAdapter adapter;
     SQLiteDatabase db;
     FloatingActionButton fab;
+    String table_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,49 +30,83 @@ public class MainActivity extends AppCompatActivity {
 
         db = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
-        pokemonList = new ArrayList<>();
-
-
-        updateList();
-
         fab = findViewById(R.id.floatingActionButton);
+        lv = findViewById(R.id.lv_pokemon);
+
+        Intent received = getIntent();
+        table_name = received.getStringExtra("tbl_name");
+
+        if (table_name.equals("tbl_pokemon")) showPokemons();
+
+        else showTrainers();
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,
-                        AddPokemon_Screen.class));
+                Intent i = new Intent(MainActivity.this, Add_Screen.class);
+                i.putExtra("tbl_name", table_name);
+                startActivity(i);
             }
         });
 
     }
 
-    private void updateList() {
+    private void showTrainers() {
+        ArrayList<Trainer> trainers = new ArrayList<>();
+        TrainerAdapter adapter;
 
-        pokemonList.clear();
+        Cursor cursor = db.rawQuery("select * from " + "tbl_trainer", null);
+        while(cursor.moveToNext()){
+            String name = cursor.getString(0);
+            int id = cursor.getInt(2);
+            String phone = cursor.getString(1);
+            Trainer tmp = new Trainer(name, phone, id);
+           trainers.add(tmp);
+        }
+
+        adapter = new TrainerAdapter(trainers, MainActivity.this);
+        lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Trainer tmp = trainers.get(position);
+                Intent intent = new Intent(MainActivity.this, EditScreen.class);
+                intent.putExtra("column", position);
+                intent.putExtra("tbl_name", table_name);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void showPokemons() {
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
+        PokemonAdapter adapter;
+
         Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
         while(cursor.moveToNext()){
             String name = cursor.getString(0);
             int power = cursor.getInt(1);
             String type = cursor.getString(2);
             Pokemon pokemon = new Pokemon(name, power, type);
-            pokemonList.add(pokemon);
+            pokemons.add(pokemon);
         }
 
-
-        lv = findViewById(R.id.lv_pokemon);
-        adapter = new PokemonAdapter(pokemonList,
-                MainActivity.this);
+        adapter = new PokemonAdapter(pokemons, MainActivity.this);
         lv.setAdapter(adapter);
+
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Pokemon tmp = pokemonList.get(position);
+                Pokemon tmp = pokemons.get(position);
                 Intent intent = new Intent(MainActivity.this, EditScreen.class);
-                intent.putExtra(Utils.INTENT_KEY_POKEMON_NAME, tmp.getName());
-                intent.putExtra("column", position+1);
+                intent.putExtra("column", position);
+                intent.putExtra("tbl_name", table_name);
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -92,5 +123,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(getIntent());
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(MainActivity.this, SplashScreen.class);
+        startActivity(i);
     }
 }

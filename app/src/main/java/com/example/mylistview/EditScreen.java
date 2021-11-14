@@ -33,6 +33,7 @@ public class EditScreen extends AppCompatActivity {
     SQLiteDatabase db;
     String column;
     Context c;
+    String table_name;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,41 +53,82 @@ public class EditScreen extends AppCompatActivity {
 
         db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
         Intent intent = getIntent();
-        column = String.valueOf(intent.getIntExtra("column", 0));
-        Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON + " where rowid=" + column, null );
-        cursor.moveToFirst();
+        column = String.valueOf(intent.getIntExtra("column",0)+1);
+        System.out.println(column);
+        table_name = intent.getStringExtra("tbl_name");
 
-        et_name.setText(cursor.getString(cursor.getColumnIndex("name")));
-        et_type.setText(cursor.getString(cursor.getColumnIndex("type")));
-        et_power.setText(String.valueOf(cursor.getInt(cursor.getColumnIndex("power"))));
-        c = getApplicationContext();
-
-        if(c.getResources().getIdentifier(et_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()) != 0){
-            img.setImageResource(c.getResources().getIdentifier(et_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()));
-        }
-        else{
-            img.setImageResource(R.drawable.poca_ball);
-        }
-
-        btn_submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(et_name.getText().toString().isEmpty() || et_type.getText().toString().isEmpty() || et_power.getText().toString().isEmpty()){
-                    Toast.makeText(EditScreen.this, "Fields empty", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    ContentValues cv = new ContentValues();
-                    cv.put("name", et_name.getText().toString());
-                    cv.put("power", Integer.parseInt(et_power.getText().toString()));
-                    cv.put("type", et_type.getText().toString());
-
-                    db.update(Utils.TABLE_NAME_POKEMON, cv, "rowid=?",new String[]{column});
-                    Intent i = new Intent(EditScreen.this, MainActivity.class);
-                    startActivity(i);
-
-                }
+        if(table_name.equals("tbl_pokemon")){
+            Cursor cursor = db.rawQuery("select * from tbl_pokemon where rowid = " + column , null);
+            cursor.moveToFirst();
+            et_name.setText(cursor.getString(0));
+            et_type.setText(cursor.getString(1));
+            et_power.setText(String.valueOf(2));
+            c = getApplicationContext();
+            if(c.getResources().getIdentifier(et_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()) != 0){
+                img.setImageResource(c.getResources().getIdentifier(et_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()));
             }
-        });
+            else{
+                img.setImageResource(R.drawable.poca_ball);
+            }
+
+
+            btn_submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(et_name.getText().toString().isEmpty() || et_type.getText().toString().isEmpty() || et_power.getText().toString().isEmpty()){
+                        Toast.makeText(EditScreen.this, "Fields empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        ContentValues cv = new ContentValues();
+                        cv.put("name", et_name.getText().toString());
+                        cv.put("power", Integer.parseInt(et_power.getText().toString()));
+                        cv.put("type", et_type.getText().toString());
+
+                        db.update(Utils.TABLE_NAME_POKEMON, cv, "rowid=?",new String[]{column});
+                        Intent i = new Intent(EditScreen.this, MainActivity.class);
+                        i.putExtra("tbl_name", table_name);
+                        startActivity(i);
+
+                    }
+                }
+            });
+        }
+
+        else{
+            Cursor cursor = db.rawQuery("select * from " + table_name + " where rowid=?", new String[]{column} );
+            cursor.moveToFirst();
+
+            et_name.setText(cursor.getString(0));
+            et_type.setText(cursor.getString(1));
+            et_type.setHint("Phone");
+            et_power.setText(String.valueOf(cursor.getInt(2)));
+            et_power.setHint("ID");
+            c = getApplicationContext();
+            img.setImageResource(R.drawable.trainer);
+
+
+            btn_submit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(et_name.getText().toString().isEmpty() || et_type.getText().toString().isEmpty() || et_power.getText().toString().isEmpty()){
+                        Toast.makeText(EditScreen.this, "Fields empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        ContentValues cv = new ContentValues();
+                        cv.put("name", et_name.getText().toString());
+                        cv.put("phone", Integer.parseInt(et_power.getText().toString()));
+                        cv.put("id", et_type.getText().toString());
+
+                        db.update(table_name, cv, "rowid=?",new String[]{column});
+                        Intent i = new Intent(EditScreen.this, MainActivity.class);
+                        i.putExtra("tbl_name", table_name);
+                        startActivity(i);
+
+                    }
+                }
+            });
+        }
+
 
 
     }
@@ -95,10 +137,19 @@ public class EditScreen extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.delete){
-            db.delete(Utils.TABLE_NAME_POKEMON, "rowid=?", new String[]{column});
+
+            db.delete(table_name, "rowid=?", new String[]{column});
             Intent intent = new Intent(EditScreen.this, MainActivity.class);
+            intent.putExtra("tbl_name", table_name);
             startActivity(intent);
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(EditScreen.this, MainActivity.class);
+        i.putExtra("tbl_name", table_name);
+        startActivity(i);
     }
 }
