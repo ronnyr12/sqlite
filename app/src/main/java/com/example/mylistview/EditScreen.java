@@ -139,6 +139,7 @@ public class EditScreen extends AppCompatActivity {
         if(id == R.id.delete){
 
             db.delete(table_name, "rowid=?", new String[]{column});
+            db.execSQL("vacuum"); //resets rowids
             Intent intent = new Intent(EditScreen.this, MainActivity.class);
             intent.putExtra("tbl_name", table_name);
             startActivity(intent);
