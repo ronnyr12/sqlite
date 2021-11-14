@@ -70,14 +70,6 @@ class Utils {
         }
     }
 
-
-
-
-
-
-
-
-
     public static void addDefault_Trainers(SQLiteDatabase db_pokemon) {
         db_pokemon.execSQL("delete from " + TABLE_NAME_TRAINER);
 
