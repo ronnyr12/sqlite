@@ -45,8 +45,6 @@ public class EditScreen extends AppCompatActivity {
         String pokemonType = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_TYPE);
         int pid = intent.getIntExtra( "pid", 0);
 
-
-
         rg_type = findViewById(R.id.rg_type);
         tv_edit_name = findViewById( R.id.tv_edit_name );
         btn_submit = findViewById( R.id.btn_submit );

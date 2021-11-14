@@ -23,8 +23,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        db = openOrCreateDatabase(Utils.DATABASE_NAME,
-                MODE_PRIVATE, null);
+        db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
 
         et_admin = findViewById(R.id.et_admin);
         et_admin.setVisibility(View.INVISIBLE);
@@ -33,17 +32,17 @@ public class SplashScreen extends AppCompatActivity {
         btn_admin.setOnClickListener(v -> {
             String id = et_admin.getText().toString();
             if(id == Utils.ADMIN_ID){
-                Intent intent = new Intent(getApplicationContext(), CatchPokemon_Screen.class);
-                intent.putExtra( Utils.ADMIN_ID, Utils.ADMIN_ID );
-                et_admin.setText( "Enter the admin id" );
+                Intent intent = new Intent(SplashScreen.this, CatchPokemon_Screen.class);
+                intent.putExtra(Utils.INTENT_KEY_TRAINER_ID, id);
                 startActivity(intent);
+                et_admin.setText( "Enter the admin id" );
             }
         });
         Utils.createTables(db);
         Utils.addDefault_Pokemons(db);
         Utils.addDefault_Trainers(db);
 
-        et_admin = findViewById( R.id.et_admin );
+        et_admin = findViewById(R.id.et_admin);
         imageView = findViewById(R.id.imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
