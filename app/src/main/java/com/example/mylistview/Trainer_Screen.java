@@ -31,9 +31,9 @@ public class Trainer_Screen extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String trainerName = intent.getStringExtra(UtilsTrainer.INTENT_KEY_TRAINER_NAME);
-        String trainerPhone = "0" + intent.getStringExtra(UtilsTrainer.INTENT_KEY_TRAINER_PHONE);
-        int num = intent.getIntExtra(UtilsTrainer.INTENT_KEY_TRAINER_ID, 0);
+        String trainerName = intent.getStringExtra(Utils.INTENT_KEY_TRAINER_NAME);
+        String trainerPhone = "0" + intent.getStringExtra(Utils.INTENT_KEY_TRAINER_PHONE);
+        int num = intent.getIntExtra(Utils.INTENT_KEY_TRAINER_ID, 0);
         String trainerId = "" + num;
 
         name.setText(trainerName);

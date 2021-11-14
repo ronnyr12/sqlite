@@ -26,11 +26,12 @@ public class MainActivityTrainer extends AppCompatActivity {
 
         tv_trainer = findViewById(R.id.tv_trainer);
 
-        db_trainer = openOrCreateDatabase(UtilsTrainer.DATABASE_NAME, MODE_PRIVATE, null);
+        db_trainer = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
         trainerList = new ArrayList<>();
 
         //cursor selects objects from the table in database and add them to arrayList
-        Cursor cursor = db_trainer.rawQuery("select * from " + UtilsTrainer.TABLE_NAME_TRAINER, null);
+        Cursor cursor = db_trainer.rawQuery("select * from " +
+                Utils.TABLE_NAME_TRAINER, null);
         while ( cursor.moveToNext() ){
             String name = cursor.getString(0);
             String phone = cursor.getString(1);
@@ -46,9 +47,9 @@ public class MainActivityTrainer extends AppCompatActivity {
         lv_trainer.setOnItemClickListener((parent, view, position, id) -> {
             Trainer tmp = trainerList.get(position);
             Intent intent = new Intent(MainActivityTrainer.this, Trainer_Screen.class);
-            intent.putExtra(UtilsTrainer.INTENT_KEY_TRAINER_NAME, tmp.getName());
-            intent.putExtra(UtilsTrainer.INTENT_KEY_TRAINER_PHONE, tmp.getPhone());
-            intent.putExtra(UtilsTrainer.INTENT_KEY_TRAINER_ID, tmp.getId());
+            intent.putExtra(Utils.INTENT_KEY_TRAINER_NAME, tmp.getName());
+            intent.putExtra(Utils.INTENT_KEY_TRAINER_PHONE, tmp.getPhone());
+            intent.putExtra(Utils.INTENT_KEY_TRAINER_ID, tmp.getId());
             startActivity(intent);
         });
     }

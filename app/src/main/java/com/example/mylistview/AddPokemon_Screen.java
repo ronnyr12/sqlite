@@ -27,7 +27,7 @@ public class AddPokemon_Screen extends AppCompatActivity {
      * custom method - initialize values of our activity
      */
     private void init() {
-        db_pokemon = openOrCreateDatabase(UtilsPokemon.DATABASE_NAME,
+        db_pokemon = openOrCreateDatabase(Utils.DATABASE_NAME,
             MODE_PRIVATE, null);
 
         et_name = findViewById(R.id.et_name);

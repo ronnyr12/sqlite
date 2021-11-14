@@ -17,17 +17,16 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        db_pokemon = openOrCreateDatabase(UtilsPokemon.DATABASE_NAME,
+        db_pokemon = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
 
-        UtilsPokemon.createTables(db_pokemon);
-        UtilsPokemon.addALLToDb(db_pokemon);
+        Utils.createTables(db_pokemon);
+        Utils.addDefault_Pokemons(db_pokemon);
 
-        db_trainer = openOrCreateDatabase(UtilsTrainer.DATABASE_NAME,
+        db_trainer = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
 
-        UtilsTrainer.createTables(db_trainer);
-        UtilsTrainer.addALLToDb(db_trainer);
+        Utils.addDefault_Trainers(db_pokemon);
 
 
         btnEnter = findViewById(R.id.btnEnter);

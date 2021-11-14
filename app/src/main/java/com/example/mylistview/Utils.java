@@ -4,26 +4,43 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-class UtilsPokemon {
+class Utils {
     final static String DATABASE_NAME = "db_pokemon_app";
     final static String TABLE_NAME_POKEMON = "tbl_pokemon";
     final static String TABLE_POKEMON_COL_NAME = "name";
     final static String TABLE_POKEMON_COL_POWER = "power";
     final static String TABLE_POKEMON_COL_TYPE = "type";
 
+    final static String TABLE_NAME_TRAINER = "tbl_trainer";
+    final static String TABLE_TRAINER_COL_NAME = "name";
+    final static String TABLE_TRAINER_COL_PHONE = "phone";
+    final static String TABLE_TRAINER_COL_ID = "id";
+
     final static String INTENT_KEY_POKEMON_NAME = "pokemon_name";
     final static String INTENT_KEY_POKEMON_POWER = "pokemon_power";
     final static String INTENT_KEY_POKEMON_TYPE = "pokemon_type";
 
+    final static String INTENT_KEY_TRAINER_NAME = "name";
+    final static String INTENT_KEY_TRAINER_PHONE = "phone";
+    final static String INTENT_KEY_TRAINER_ID = "id";
+
     public static void createTables(SQLiteDatabase db_pokemon){
         // TODO: 07.11.2021 implement create database ;
         db_pokemon.execSQL("create table if not exists "
-                + UtilsPokemon.TABLE_NAME_POKEMON +
-                "(" + UtilsPokemon.TABLE_POKEMON_COL_NAME + " text, " + UtilsPokemon.TABLE_POKEMON_COL_POWER + " integer, " + UtilsPokemon.TABLE_POKEMON_COL_TYPE + " text)");
+                + Utils.TABLE_NAME_POKEMON +
+                "(" + Utils.TABLE_POKEMON_COL_NAME + " text, " +
+                Utils.TABLE_POKEMON_COL_POWER + " integer, " +
+                Utils.TABLE_POKEMON_COL_TYPE +" text)");
+
+        db_pokemon.execSQL("create table if not exists "
+                + TABLE_NAME_TRAINER +
+                "(" + TABLE_TRAINER_COL_NAME + " text, " +
+                TABLE_TRAINER_COL_PHONE + " integer, " +
+                TABLE_TRAINER_COL_ID + " text)");
     }
 
-    public static void addALLToDb(SQLiteDatabase db_pokemon){
-        db_pokemon.execSQL("delete from "+UtilsPokemon.TABLE_NAME_POKEMON);
+    public static void addDefault_Pokemons(SQLiteDatabase db_pokemon){
+        db_pokemon.execSQL("delete from "+Utils.TABLE_NAME_POKEMON);
 
         Pokemon pk1 = new Pokemon("giglipuf",
                 500, "mind");
@@ -52,28 +69,17 @@ class UtilsPokemon {
         //  db_pokemon.execSQL("insert into tbl_pokemon values('"+p.getName()+"', 100,'"+p.getType()+"')");
         }
     }
-}
 
-class UtilsTrainer {
-    final static String DATABASE_NAME = "db_trainer_app";
-    final static String TABLE_NAME_TRAINER = "tbl_trainer";
-    final static String TABLE_TRAINER_COL_NAME = "name";
-    final static String TABLE_TRAINER_COL_PHONE = "phone";
-    final static String TABLE_TRAINER_COL_ID = "id";
 
-    final static String INTENT_KEY_TRAINER_NAME = "name";
-    final static String INTENT_KEY_TRAINER_PHONE = "phone";
-    final static String INTENT_KEY_TRAINER_ID = "id";
 
-    public static void createTables(SQLiteDatabase db_pokemon){
-        // TODO: 07.11.2021 implement create database ;
-        db_pokemon.execSQL("create table if not exists "
-                + UtilsTrainer.TABLE_NAME_TRAINER +
-                "(" + UtilsTrainer.TABLE_TRAINER_COL_NAME + " text, " + UtilsTrainer.TABLE_TRAINER_COL_PHONE + " integer, " + UtilsTrainer.TABLE_TRAINER_COL_ID + " text)");
-    }
 
-    public static void addALLToDb(SQLiteDatabase db_pokemon){
-        db_pokemon.execSQL("delete from "+UtilsTrainer.TABLE_NAME_TRAINER);
+
+
+
+
+
+    public static void addDefault_Trainers(SQLiteDatabase db_pokemon) {
+        db_pokemon.execSQL("delete from " + TABLE_NAME_TRAINER);
 
         Trainer tr1 = new Trainer("Ashe", "0532565412", 15262);
 
@@ -92,9 +98,10 @@ class UtilsTrainer {
         trainerList.add(tr4);
         trainerList.add(tr5);
 
-        for( Trainer tr : trainerList ) {
-            db_pokemon.execSQL("insert into tbl_trainer values('"+tr.getName()+"', '"+tr.getPhone()+"','"+tr.getId()+"')");
+        for (Trainer tr : trainerList) {
+            db_pokemon.execSQL("insert into tbl_trainer values('" + tr.getName() + "', '" + tr.getPhone() + "','" + tr.getId() + "')");
         }
     }
+
 }
 

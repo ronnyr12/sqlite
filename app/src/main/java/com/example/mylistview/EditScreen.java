@@ -36,13 +36,14 @@ public class EditScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_screen);
 
-        db_pokemon = openOrCreateDatabase(UtilsPokemon.DATABASE_NAME, MODE_PRIVATE, null);
+        db_pokemon = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
 
         getSupportActionBar().hide(); //<< this
+
         Intent intent = getIntent();
 
-        String pokemonName = intent.getStringExtra(UtilsPokemon.INTENT_KEY_POKEMON_NAME);
-        String pokemonType = intent.getStringExtra(UtilsPokemon.INTENT_KEY_POKEMON_TYPE);
+        String pokemonName = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_NAME);
+        String pokemonType = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_TYPE);
 
         rg_type = findViewById(R.id.rg_type);
         tv_edit_name = findViewById(R.id.tv_edit_name);

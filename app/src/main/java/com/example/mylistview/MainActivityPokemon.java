@@ -31,12 +31,12 @@ public class MainActivityPokemon extends AppCompatActivity {
 
         tv_pokemon = findViewById(R.id.tv_pokemon);
 
-        db_pokemon = openOrCreateDatabase(UtilsPokemon.DATABASE_NAME,
+        db_pokemon = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
         pokemonList = new ArrayList<>();
 
         //cursor selects objects from the table in database and add them to arrayList
-        Cursor cursor = db_pokemon.rawQuery("select * from " + UtilsPokemon.TABLE_NAME_POKEMON, null);
+        Cursor cursor = db_pokemon.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
         while(cursor.moveToNext()){
             String name = cursor.getString(0);
             int power = cursor.getInt(1);
@@ -54,8 +54,8 @@ public class MainActivityPokemon extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pokemon tmp = pokemonList.get(position);
                 Intent intent = new Intent(MainActivityPokemon.this, EditScreen.class);
-                intent.putExtra(UtilsPokemon.INTENT_KEY_POKEMON_NAME, tmp.getName());
-                intent.putExtra(UtilsPokemon.INTENT_KEY_POKEMON_TYPE, tmp.getType());
+                intent.putExtra(Utils.INTENT_KEY_POKEMON_NAME, tmp.getName());
+                intent.putExtra(Utils.INTENT_KEY_POKEMON_TYPE, tmp.getType());
                 startActivity(intent);
             }
         });
