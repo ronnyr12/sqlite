@@ -7,13 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 public class SplashScreen extends AppCompatActivity {
     Button btnEnter;
     SQLiteDatabase db;
-
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +25,16 @@ public class SplashScreen extends AppCompatActivity {
                 MODE_PRIVATE, null);
 
         Utils.createTables(db);
-        Utils.addALLToDb(db);
+        Utils.addDefault_Pokemons(db);
+        Utils.addDefault_Trainers(db);
 
+        imageView = findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), CatchPokemon_Screen.class));
+            }
+        });
         btnEnter = findViewById(R.id.btnEnter);
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
