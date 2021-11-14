@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class EditScreen extends AppCompatActivity {
-    Switch swtchdark;
+    Switch switchdark;
     ConstraintLayout edit_layout;
 
     RadioGroup rg_type;
@@ -27,7 +27,7 @@ public class EditScreen extends AppCompatActivity {
 
     RadioButton radioButton;
     Button btn_submit;
-    TextView tv_edit_name;
+    TextView tv_edit_name, tv_row_id, row_id;
     SQLiteDatabase db;
 
     @Override
@@ -43,21 +43,25 @@ public class EditScreen extends AppCompatActivity {
 
         String pokemonName = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_NAME);
         String pokemonType = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_TYPE);
+        int pid = intent.getIntExtra( "pid", 0);
+
+
 
         rg_type = findViewById(R.id.rg_type);
-        tv_edit_name = findViewById(R.id.tv_edit_name);
-        btn_submit = findViewById(R.id.btn_submit);
-
+        tv_edit_name = findViewById( R.id.tv_edit_name );
+        btn_submit = findViewById( R.id.btn_submit );
+        tv_row_id = findViewById( R.id.tv_row_id );
+        row_id = findViewById( R.id.row_id );
 
         tv_edit_name.setText(pokemonName);
+        row_id.setText( ""+pid );
         //setTypeRButtonChecked(pokemonType);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // get selected radio button from radioGroup
-                int selectedId = 0;
-                selectedId = rg_type.getCheckedRadioButtonId();
+                int selectedId = rg_type.getCheckedRadioButtonId();
                 // find the radiobutton by returned id
                 radioButton = findViewById(selectedId);
                 System.out.println(selectedId);
@@ -66,11 +70,11 @@ public class EditScreen extends AppCompatActivity {
             }
         });
         edit_layout = findViewById(R.id.edit_layout);
-        swtchdark = findViewById(R.id.swtch_dark);
-        swtchdark.setOnClickListener(new View.OnClickListener() {
+        switchdark = findViewById(R.id.switch_dark);
+        switchdark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean switchState = swtchdark.isChecked();
+                boolean switchState = switchdark.isChecked();
                 if(switchState)
                     edit_layout.setBackgroundColor(Color.DKGRAY);
                 else

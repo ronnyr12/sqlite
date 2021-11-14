@@ -13,7 +13,7 @@ public class TrainerAdapter extends BaseAdapter {
     ArrayList<Trainer> trainers;
     Context context;
 
-    public TrainerAdapter(ArrayList<Trainer> trainers, Context context){
+    public TrainerAdapter(ArrayList<Trainer> trainers, Context context) {
         this.trainers = trainers;
         this.context = context;
     }

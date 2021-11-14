@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,7 @@ public class MainActivityPokemon extends AppCompatActivity {
     SQLiteDatabase db_pokemon;
     ArrayList<Pokemon> pokemonList;
     FloatingActionButton fab;
+    ArrayList<Integer> pid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +36,19 @@ public class MainActivityPokemon extends AppCompatActivity {
         db_pokemon = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
         pokemonList = new ArrayList<>();
-
+        pid = new ArrayList<>();
         //cursor selects objects from the table in database and add them to arrayList
         Cursor cursor = db_pokemon.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
         while(cursor.moveToNext()){
-            String name = cursor.getString(0);
-            int power = cursor.getInt(1);
-            String type = cursor.getString(2);
+            pid.add( cursor.getInt( 0 ) );
+            String name = cursor.getString(1);
+            int power = cursor.getInt(2);
+            String type = cursor.getString(3);
 
+            Toast.makeText( getApplicationContext(), String.valueOf(cursor.getInt( 0 )) +"/"+ name +"/"+ String.valueOf( power ) +"/"+ type, Toast.LENGTH_SHORT ).show();
             Pokemon pokemon = new Pokemon(name, power, type);
-            pokemonList.add(pokemon);
+            //pokemonList.add(pokemon);
+            pokemonList.add( pokemon );
         }
 
         lv_pokemon = findViewById(R.id.lv_pokemon);
@@ -56,6 +61,9 @@ public class MainActivityPokemon extends AppCompatActivity {
                 Intent intent = new Intent(MainActivityPokemon.this, EditScreen.class);
                 intent.putExtra(Utils.INTENT_KEY_POKEMON_NAME, tmp.getName());
                 intent.putExtra(Utils.INTENT_KEY_POKEMON_TYPE, tmp.getType());
+                intent.putExtra( "pid", pid.get( position ) );
+
+                Toast.makeText( getApplicationContext(), ""+pid.get(position), Toast.LENGTH_LONG ).show();
                 startActivity(intent);
             }
         });

@@ -1,6 +1,7 @@
 package com.example.mylistview;
 
 public class Trainer {
+
     private String name;
     private String phone;
     private int id;

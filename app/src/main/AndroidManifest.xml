@@ -13,6 +13,9 @@
             android:name=".Trainer_Screen"
             android:exported="false" />
         <activity
+            android:name=".CatchPokemon_Screen"
+            android:exported="false" />
+        <activity
             android:name=".MainActivityTrainer"
             android:exported="false" />
         <activity
