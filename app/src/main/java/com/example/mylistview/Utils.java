@@ -10,6 +10,7 @@ class Utils {
     final static String TABLE_POKEMON_COL_NAME = "name";
     final static String TABLE_POKEMON_COL_POWER = "power";
     final static String TABLE_POKEMON_COL_TYPE = "type";
+    final static String TABLE_POKEMON_COL_PID = "pid";
 
     final static String TABLE_NAME_TRAINER = "tbl_trainer";
     final static String TABLE_TRAINER_COL_NAME = "name";
@@ -24,23 +25,21 @@ class Utils {
     final static String INTENT_KEY_TRAINER_PHONE = "phone";
     final static String INTENT_KEY_TRAINER_ID = "id";
 
-    public static void createTables(SQLiteDatabase db_pokemon){
+    public static void createTables(SQLiteDatabase db){
         // TODO: 07.11.2021 implement create database ;
-        db_pokemon.execSQL("create table if not exists "
-                + Utils.TABLE_NAME_POKEMON +
-                "(" + Utils.TABLE_POKEMON_COL_NAME + " text, " +
-                Utils.TABLE_POKEMON_COL_POWER + " integer, " +
-                Utils.TABLE_POKEMON_COL_TYPE +" text)");
+        db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
+                " ("+TABLE_POKEMON_COL_PID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
 
-        db_pokemon.execSQL("create table if not exists "
+
+        db.execSQL("create table if not exists "
                 + TABLE_NAME_TRAINER +
                 "(" + TABLE_TRAINER_COL_NAME + " text, " +
                 TABLE_TRAINER_COL_PHONE + " integer, " +
                 TABLE_TRAINER_COL_ID + " text)");
     }
 
-    public static void addDefault_Pokemons(SQLiteDatabase db_pokemon){
-        db_pokemon.execSQL("delete from "+Utils.TABLE_NAME_POKEMON);
+    public static void addDefault_Pokemons(SQLiteDatabase db){
+        db.execSQL("delete from "+Utils.TABLE_NAME_POKEMON);
 
         Pokemon pk1 = new Pokemon("giglipuf",
                 500, "mind");
@@ -56,22 +55,25 @@ class Utils {
 
         Pokemon pk5 = new Pokemon("riyachu",
                 5500, "electricity");
+        Pokemon pk6 = new Pokemon("riyachu",
+                5500, "electricity");
+        ArrayList<Pokemon> pokemonList =
+                new ArrayList<>();
 
-        ArrayList<Pokemon> pokemonList = new ArrayList<>();
         pokemonList.add(pk1);
         pokemonList.add(pk2);
         pokemonList.add(pk3);
         pokemonList.add(pk4);
         pokemonList.add(pk5);
+        pokemonList.add(pk6);
 
-        for( Pokemon p : pokemonList ) {
-            db_pokemon.execSQL("insert into tbl_pokemon values('"+p.getName()+"', '"+p.getPower()+"','"+p.getType()+"')");
-        //  db_pokemon.execSQL("insert into tbl_pokemon values('"+p.getName()+"', 100,'"+p.getType()+"')");
+        for (Pokemon p: pokemonList) {
+            db.execSQL("insert into tbl_pokemon values('"+p.getName()+"','"+p.getPower()+"','"+p.getType()+"')");
         }
     }
 
-    public static void addDefault_Trainers(SQLiteDatabase db_pokemon) {
-        db_pokemon.execSQL("delete from " + TABLE_NAME_TRAINER);
+    public static void addDefault_Trainers(SQLiteDatabase db) {
+        db.execSQL("delete from " + TABLE_NAME_TRAINER);
 
         Trainer tr1 = new Trainer("Ashe", "0532565412", 15262);
 
@@ -91,7 +93,7 @@ class Utils {
         trainerList.add(tr5);
 
         for (Trainer tr : trainerList) {
-            db_pokemon.execSQL("insert into tbl_trainer values('" + tr.getName() + "', '" + tr.getPhone() + "','" + tr.getId() + "')");
+            db.execSQL("insert into tbl_trainer values('" + tr.getName() + "', '" + tr.getPhone() + "','" + tr.getId() + "')");
         }
     }
 

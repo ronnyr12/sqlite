@@ -28,15 +28,14 @@ public class EditScreen extends AppCompatActivity {
     RadioButton radioButton;
     Button btn_submit;
     TextView tv_edit_name;
-
-    SQLiteDatabase db_pokemon;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_screen);
-
-        db_pokemon = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
+        db = openOrCreateDatabase(Utils.DATABASE_NAME,
+                MODE_PRIVATE, null);
 
         getSupportActionBar().hide(); //<< this
 
