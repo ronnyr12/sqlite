@@ -8,9 +8,10 @@ public class Utils {
     final static String INTENT_KEY_POKEMON_NAME = "pokemon_name";
 
 
-    final static String DATABASE_NAME = "db_pokemon_app";
+    final static String DATABASE_NAME = "db_pokemon_app2";
 
     final static String TABLE_NAME_POKEMON = "tbl_pokemon";
+    final static String TABLE_POKEMON_COL_PID = "pid";
     final static String TABLE_POKEMON_COL_NAME = "name";
     final static String TABLE_POKEMON_COL_POWER = "power";
     final static String TABLE_POKEMON_COL_TYPE = "type";
@@ -20,7 +21,7 @@ public class Utils {
         //db.execSQL("create table if not exists tbl_pokemon(name text, power integer, type text)");
 
         db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
-                " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
+                " ("+TABLE_POKEMON_COL_PID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
     }
 
     public static void addALLToDb(SQLiteDatabase db){
@@ -40,7 +41,8 @@ public class Utils {
 
         Pokemon pk5 = new Pokemon("riyachu",
                 5500, "electricity");
-
+        Pokemon pk6 = new Pokemon("riyachu",
+                5500, "electricity");
         ArrayList<Pokemon> pokemonList =
                 new ArrayList<>();
 
@@ -49,9 +51,10 @@ public class Utils {
         pokemonList.add(pk3);
         pokemonList.add(pk4);
         pokemonList.add(pk5);
+        pokemonList.add(pk6);
 
         for (Pokemon p: pokemonList) {
-            db.execSQL("insert into tbl_pokemon values('"+p.getName()+"',"+p.getPower()+",'"+p.getType()+"')");
+            db.execSQL("insert into tbl_pokemon values(null, '"+p.getName()+"',"+p.getPower()+",'"+p.getType()+"')");
         }
     }
 }

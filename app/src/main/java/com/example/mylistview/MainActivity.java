@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
         while(cursor.moveToNext()){
-            String name = cursor.getString(0);
-            int power = cursor.getInt(1);
-            String type = cursor.getString(2);
+            String name = cursor.getString(1);
+            int power = cursor.getInt(2);
+            String type = cursor.getString(3);
             Pokemon pokemon = new Pokemon(name, power, type);
             pokemonList.add(pokemon);
         }
