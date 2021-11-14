@@ -8,7 +8,7 @@ public class Utils {
     final static String INTENT_KEY_POKEMON_NAME = "pokemon_name";
 
 
-    final static String DATABASE_NAME = "db_pokemon_app2";
+    final static String DATABASE_NAME = "db_pokemon_app3";
 
     final static String TABLE_NAME_POKEMON = "tbl_pokemon";
     final static String TABLE_POKEMON_COL_PID = "pid";
@@ -36,8 +36,7 @@ public class Utils {
 
         db.execSQL("create table if not exists "
                 + TABLE_NAME_TRAINER +
-                "(" + TABLE_POKEMON_COL_PID + " Integer PRIMARY KEY AUTOINCREMENT, " +
-                TABLE_TRAINER_COL_NAME + " text, " +
+                "(" + TABLE_TRAINER_COL_NAME + " text, " +
                 TABLE_TRAINER_COL_PHONE + " integer, " +
                 TABLE_TRAINER_COL_ID + " text)");
 
