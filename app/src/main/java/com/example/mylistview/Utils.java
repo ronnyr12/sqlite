@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public class Utils {
     final static String INTENT_KEY_POKEMON_NAME = "pokemon_name";
+    final static String ADMIN_ID = "15262";
 
-
-    final static String DATABASE_NAME = "db_pokemon_app3";
+    final static String DATABASE_NAME = "db_pokemon_app4";
 
     final static String TABLE_NAME_POKEMON = "tbl_pokemon";
     final static String TABLE_POKEMON_COL_PID = "pid";
@@ -23,10 +23,18 @@ public class Utils {
     final static String TABLE_TRAINER_COL_ID = "id";
 
 
+    final static String TABLE_NAME_CATCHED_POKEMON = "tbl_catched_pokemons";
+    final static String TABLE_CATCHED_POKEMON_COL_ID = "id";
+    final static String TABLE_CATCHED_POKEMON_COL_PID = "pid";
+
     final static String INTENT_KEY_TRAINER_NAME = "name";
     final static String INTENT_KEY_TRAINER_PHONE = "phone";
     final static String INTENT_KEY_TRAINER_ID = "id";
 
+    /**
+     * creates the database tables
+     * @param db - a reference to our database
+     */
     public static void createTables(SQLiteDatabase db){
 
         //db.execSQL("create table if not exists tbl_pokemon(name text, power integer, type text)");
@@ -40,6 +48,10 @@ public class Utils {
                 TABLE_TRAINER_COL_PHONE + " integer, " +
                 TABLE_TRAINER_COL_ID + " text)");
 
+        db.execSQL("create table if not exists "
+                + TABLE_NAME_CATCHED_POKEMON +
+                "(" + TABLE_CATCHED_POKEMON_COL_ID + " integer, " +
+                TABLE_CATCHED_POKEMON_COL_PID + " integer)");
     }
     public static void addDefault_Trainers(SQLiteDatabase db_pokemon) {
         db_pokemon.execSQL("delete from " + TABLE_NAME_TRAINER);
