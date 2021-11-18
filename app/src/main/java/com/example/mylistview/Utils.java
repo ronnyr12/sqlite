@@ -7,11 +7,12 @@ import java.util.ArrayList;
 
 public class Utils {
     final static String INTENT_KEY_POKEMON_NAME = "pokemon_name";
+    final static String ADMIN_ID = "15262";
 
 
     final static String DATABASE_NAME = "db_pokemon_app";
-
     final static String TABLE_NAME_POKEMON = "tbl_pokemon";
+    final static String TABLE_NAME_CAUGHT = "tbl_caught";
     final static String TABLE_POKEMON_COL_NAME = "name";
     final static String TABLE_POKEMON_COL_POWER = "power";
     final static String TABLE_POKEMON_COL_TYPE = "type";
@@ -24,6 +25,8 @@ public class Utils {
                 " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
 
         db.execSQL("create table if not exists tbl_trainer(name text, phone text, id integer)");
+
+        db.execSQL("create table if not exists " + Utils.TABLE_NAME_CAUGHT + "(id integer, pid integer)");
     }
 
     public static void addALLToDb(SQLiteDatabase db){

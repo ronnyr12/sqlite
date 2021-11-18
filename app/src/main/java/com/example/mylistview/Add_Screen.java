@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class Add_Screen extends AppCompatActivity {
 
@@ -17,6 +18,7 @@ public class Add_Screen extends AppCompatActivity {
     ImageView img;
     SQLiteDatabase db;
     String table_name;
+    TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +34,10 @@ public class Add_Screen extends AppCompatActivity {
         et_power = findViewById(R.id.power);
         btn_save = findViewById(R.id.save);
         img = findViewById(R.id.img);
+        title = findViewById(R.id.title);
 
         if(table_name.equals("tbl_trainer")){
+            title.setText("Add Trainer");
             img.setImageResource(R.drawable.trainer);
             et_type.setHint("Phone");
             et_power.setHint("ID");

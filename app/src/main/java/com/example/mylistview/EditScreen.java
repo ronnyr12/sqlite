@@ -34,6 +34,7 @@ public class EditScreen extends AppCompatActivity {
     String column;
     Context c;
     String table_name;
+    TextView title;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,6 +51,7 @@ public class EditScreen extends AppCompatActivity {
         et_power = findViewById(R.id.power);
         btn_submit = findViewById(R.id.edit);
         img = findViewById(R.id.img);
+        title = findViewById(R.id.title);
 
         db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
         Intent intent = getIntent();
@@ -61,8 +63,8 @@ public class EditScreen extends AppCompatActivity {
             Cursor cursor = db.rawQuery("select * from tbl_pokemon where rowid = " + column , null);
             cursor.moveToFirst();
             et_name.setText(cursor.getString(0));
-            et_type.setText(cursor.getString(1));
-            et_power.setText(String.valueOf(2));
+            et_type.setText(cursor.getString(2));
+            et_power.setText(String.valueOf(cursor.getString(1)));
             c = getApplicationContext();
             if(c.getResources().getIdentifier(et_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()) != 0){
                 img.setImageResource(c.getResources().getIdentifier(et_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()));
@@ -95,6 +97,7 @@ public class EditScreen extends AppCompatActivity {
         }
 
         else{
+            title.setText("Trainer Editor");
             Cursor cursor = db.rawQuery("select * from " + table_name + " where rowid=?", new String[]{column} );
             cursor.moveToFirst();
 
