@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity implements View.OnClickListener {
     Button btnEnter, btn_admin;
     SQLiteDatabase db;
     ImageView imageView;
@@ -30,50 +30,40 @@ public class SplashScreen extends AppCompatActivity {
         et_admin.setVisibility(View.INVISIBLE);
         btn_admin = findViewById(R.id.btn_admin);
         btn_admin.setVisibility(View.INVISIBLE);
-        btn_admin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn_admin.setOnClickListener(this);
 
-            }
-        });
         Utils.createTables(db);
         Utils.addDefault_Pokemons(db);
         Utils.addDefault_Trainers(db);
 
         imageView = findViewById(R.id.imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clicked++;
-                if(clicked == 7){
-                    et_admin.setVisibility(View.VISIBLE);
-
-                }
-
-                startActivity(new Intent(getApplicationContext(), CatchPokemon_Screen.class));
-            }
-        });
+        imageView.setOnClickListener(this);
         btnEnter = findViewById(R.id.btnEnter);
-        btnEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SplashScreen.this,
-                        MainActivity.class));
-            }
-        });
+        btnEnter.setOnClickListener(this);
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
+    public void onClick(View v) {
+        if(imageView == v){
+            clicked++;
+            if(clicked == 7){
+                et_admin.setVisibility(View.VISIBLE);
+                btn_admin.setVisibility(View.VISIBLE);
+            }
+        }
+        if(btn_admin == v){
+            String id = et_admin.getText().toString();
+            if(id.equals(Utils.ADMIN_ID)){
+                Intent intent = new Intent(SplashScreen.this,
+                        CatchPokemon_Screen.class);
+                intent.putExtra(Utils.INTENT_KEY_TRAINER_ID, id);
+                startActivity(intent);
+            }
+        }
+        if(btnEnter == v){
+            startActivity(new Intent(SplashScreen.this,
+                    MainActivity.class));
+        }
+    }
 }
