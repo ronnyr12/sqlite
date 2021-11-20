@@ -1,6 +1,9 @@
 package com.example.mylistview;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +16,12 @@ import java.util.ArrayList;
 public class TrainerAdapter extends BaseAdapter {
     ArrayList<Trainer> trainers;
     Context context;
+    SQLiteDatabase db;
 
-    public TrainerAdapter(ArrayList<Trainer> trainers, Context context){
+    public TrainerAdapter(ArrayList<Trainer> trainers, Context context, SQLiteDatabase db){
         this.trainers = trainers;
         this.context = context;
+        this.db = db;
     }
 
     @Override
@@ -45,8 +50,11 @@ public class TrainerAdapter extends BaseAdapter {
         ImageView img = convertView.findViewById(R.id.picture);
 
         tv_name.setText(tmp.getName());
-        tv_id.setText(String.valueOf(tmp.getId()));
         tv_phone.setText(tmp.getPhone());
+
+        Cursor cursor = db.rawQuery("select * from tbl_trainer where name='" + tmp.getName() + "'", null);
+        cursor.moveToFirst();
+        tv_id.setText(String.valueOf(cursor.getInt(cursor.getColumnIndex("id"))));
         img.setImageResource(R.drawable.trainer);
 
         return convertView;

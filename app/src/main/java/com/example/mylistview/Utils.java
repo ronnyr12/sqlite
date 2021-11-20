@@ -10,6 +10,7 @@ public class Utils {
     final static String ADMIN_ID = "15262";
 
 
+
     final static String DATABASE_NAME = "db_pokemon_app";
     final static String TABLE_NAME_POKEMON = "tbl_pokemon";
     final static String TABLE_NAME_CAUGHT = "tbl_caught";
@@ -19,12 +20,9 @@ public class Utils {
 
     public static void createTables(SQLiteDatabase db){
 
-        //db.execSQL("create table if not exists tbl_pokemon(name text, et_power integer, et_type text)");
+        db.execSQL("create table if not exists tbl_pokemon(id integer primary key autoincrement, name text, power integer, type text)");
 
-        db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
-                " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
-
-        db.execSQL("create table if not exists tbl_trainer(name text, phone text, id integer primary key autoincrement)");
+        db.execSQL("create table if not exists tbl_trainer(id integer primary key autoincrement, name text, phone text)");
 
         db.execSQL("create table if not exists " + Utils.TABLE_NAME_CAUGHT + "(id integer, pid integer)");
     }
@@ -64,7 +62,7 @@ public class Utils {
             pokemons.add(pk9);
 
             for (Pokemon p : pokemons) {
-                db.execSQL("insert into tbl_pokemon values('" + p.getName() + "'," + p.getPower() + ",'" + p.getType() + "')");
+                db.execSQL("insert into tbl_pokemon('name', power, 'type') values('" + p.getName() + "'," + p.getPower() + ",'" + p.getType() + "')");
             }
         }
 
@@ -77,17 +75,18 @@ public class Utils {
         if(trainers_empty){
             ArrayList<Trainer> trainers = new ArrayList<>();
 
-            Trainer t0 = new Trainer("Ashe", "100000", 10);
-            Trainer t1 = new Trainer("Muradik", "111111", 20);
-            Trainer t2 = new Trainer("Roni", "222222", 30);
-            Trainer t3 = new Trainer("Rafael", "333333", 40);
+            Trainer t0 = new Trainer("Ashe", "100000");
+            Trainer t1 = new Trainer("Muradik", "111111");
+            Trainer t2 = new Trainer("Roni", "222222");
+            Trainer t3 = new Trainer("Rafael", "333333");
+
             trainers.add(t0);
             trainers.add(t1);
             trainers.add(t2);
             trainers.add(t3);
 
             for(Trainer t : trainers){
-                db.execSQL("insert into tbl_trainer values('"+t.getName()+"',"+t.getPhone()+","+t.getId()+")");
+                db.execSQL("insert into tbl_trainer('name', 'phone') values('"+t.getName()+"',"+t.getPhone()+")");
             }
         }
 
@@ -124,24 +123,24 @@ public class Utils {
         pokemons.add(pk9);
 
         for (Pokemon p: pokemons) {
-            db.execSQL("insert into tbl_pokemon values('"+p.getName()+"',"+p.getPower()+",'"+p.getType()+"')");
+            db.execSQL("insert into tbl_pokemon('name', 'power', 'type') values('"+p.getName()+"',"+p.getPower()+",'"+p.getType()+"')");
         }
 
         db.execSQL("delete from tbl_trainer");
-
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + "tbl_trainer" + "'");
         ArrayList<Trainer> trainers = new ArrayList<>();
 
-        Trainer t0 = new Trainer("Ashe", "100000", 10);
-        Trainer t1 = new Trainer("Muradik", "111111", 20);
-        Trainer t2 = new Trainer("Roni", "222222", 30);
-        Trainer t3 = new Trainer("Rafael", "333333", 40);
+        Trainer t0 = new Trainer("Ashe", "100000");
+        Trainer t1 = new Trainer("Muradik", "111111");
+        Trainer t2 = new Trainer("Roni", "222222");
+        Trainer t3 = new Trainer("Rafael", "333333");
         trainers.add(t0);
         trainers.add(t1);
         trainers.add(t2);
         trainers.add(t3);
 
         for(Trainer t : trainers){
-            db.execSQL("insert into tbl_trainer values('"+t.getName()+"',"+t.getPhone()+","+t.getId()+")");
+            db.execSQL("insert into tbl_trainer('name', 'phone') values('"+t.getName()+"',"+t.getPhone()+")");
         }
     }
 }

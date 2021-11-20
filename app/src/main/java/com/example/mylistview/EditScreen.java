@@ -55,16 +55,17 @@ public class EditScreen extends AppCompatActivity {
 
         db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
         Intent intent = getIntent();
-        column = String.valueOf(intent.getIntExtra("column",0)+1);
+        column = intent.getStringExtra("column");
+        System.out.println(column);
         System.out.println(column);
         table_name = intent.getStringExtra("tbl_name");
 
         if(table_name.equals("tbl_pokemon")){
-            Cursor cursor = db.rawQuery("select * from tbl_pokemon where rowid = " + column , null);
+            Cursor cursor = db.rawQuery("select * from tbl_pokemon where id = " + column , null);
             cursor.moveToFirst();
-            et_name.setText(cursor.getString(0));
-            et_type.setText(cursor.getString(2));
-            et_power.setText(String.valueOf(cursor.getString(1)));
+            et_name.setText(cursor.getString(cursor.getColumnIndex("name")));
+            et_type.setText(cursor.getString(cursor.getColumnIndex("type")));
+            et_power.setText(String.valueOf(cursor.getString(cursor.getColumnIndex("power"))));
             c = getApplicationContext();
             if(c.getResources().getIdentifier(et_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()) != 0){
                 img.setImageResource(c.getResources().getIdentifier(et_name.getText().toString().toLowerCase(), "drawable", c.getPackageName()));
@@ -98,13 +99,16 @@ public class EditScreen extends AppCompatActivity {
 
         else{
             title.setText("Trainer Editor");
-            Cursor cursor = db.rawQuery("select * from " + table_name + " where rowid=?", new String[]{column} );
+            System.out.print(column);
+            Cursor cursor = db.rawQuery("select * from " + table_name + " where id=" + column, null );
             cursor.moveToFirst();
+            et_power.setEnabled(false);
 
-            et_name.setText(cursor.getString(0));
-            et_type.setText(cursor.getString(1));
+            et_name.setText(cursor.getString(cursor.getColumnIndex("name")));
+            et_type.setText(cursor.getString(cursor.getColumnIndex("phone")));
+            et_power.setText(String.valueOf(cursor.getInt(cursor.getColumnIndex("id"))));
+
             et_type.setHint("Phone");
-            et_power.setText(String.valueOf(cursor.getInt(2)));
             et_power.setHint("ID");
             c = getApplicationContext();
             img.setImageResource(R.drawable.trainer);
@@ -119,8 +123,8 @@ public class EditScreen extends AppCompatActivity {
                     else{
                         ContentValues cv = new ContentValues();
                         cv.put("name", et_name.getText().toString());
-                        cv.put("phone", Integer.parseInt(et_power.getText().toString()));
-                        cv.put("id", et_type.getText().toString());
+                        cv.put("id", Integer.parseInt(et_power.getText().toString()));
+                        cv.put("phone", et_type.getText().toString());
 
                         db.update(table_name, cv, "rowid=?",new String[]{column});
                         Intent i = new Intent(EditScreen.this, MainActivity.class);

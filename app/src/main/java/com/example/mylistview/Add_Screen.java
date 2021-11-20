@@ -41,25 +41,42 @@ public class Add_Screen extends AppCompatActivity {
             img.setImageResource(R.drawable.trainer);
             et_type.setHint("Phone");
             et_power.setHint("ID");
+            et_power.setEnabled(false);
+
+            btn_save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String name = et_name.getText().toString();
+                    String type = et_type.getText().toString();
+
+
+                    String values = "('" + name + "', '" + type + "')";
+                    db.execSQL("insert into " + table_name + "('name', 'phone') values" + values);
+                    Intent i = new Intent(Add_Screen.this, MainActivity.class);
+                    i.putExtra("tbl_name", table_name);
+                    startActivity(i);
+                }
+            });
         }
         else{
             img.setImageResource(R.drawable.poca_ball);
+            btn_save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String name = et_name.getText().toString();
+                    int power = Integer.parseInt(et_power.getText().toString());
+                    String type = et_type.getText().toString();
+
+                    String values = "('" + name + "', " + power + ", '" + type + "')";
+                    db.execSQL("insert into " + table_name + "('name', 'power', 'type') values" + values);
+                    Intent i = new Intent(Add_Screen.this, MainActivity.class);
+                    i.putExtra("tbl_name", table_name);
+                    startActivity(i);
+                }
+            });
         }
 
-        btn_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = et_name.getText().toString();
-                int power = Integer.parseInt(et_power.getText().toString());
-                String type = et_type.getText().toString();
 
-                String values = "('" + name + "', " + power + ", '" + type + "')";
-                db.execSQL("insert into " + table_name + " values" + values);
-                Intent i = new Intent(Add_Screen.this, MainActivity.class);
-                i.putExtra("tbl_name", table_name);
-                startActivity(i);
-            }
-        });
 
 
 

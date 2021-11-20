@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             trainers.add(tmp);
         }
 
-        adapter = new TrainerAdapter(trainers, MainActivity.this);
+        adapter = new TrainerAdapter(trainers, MainActivity.this, db);
         lv.setAdapter(adapter);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Trainer tmp = trainers.get(position);
                 Intent intent = new Intent(MainActivity.this, EditScreen.class);
-                intent.putExtra("column", position);
+                Cursor cursor1 = db.rawQuery("select * from tbl_trainer where name='" + tmp.getName() + "'" , null);
+                cursor1.moveToFirst();
+                System.out.println(String.valueOf(cursor1.getInt(cursor1.getColumnIndex("id"))));
+                intent.putExtra("column", String.valueOf(cursor1.getInt(cursor1.getColumnIndex("id"))));
                 intent.putExtra("tbl_name", table_name);
                 startActivity(intent);
             }
@@ -86,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
         while(cursor.moveToNext()){
-            String name = cursor.getString(0);
-            int power = cursor.getInt(1);
-            String type = cursor.getString(2);
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            int power = cursor.getInt(cursor.getColumnIndex("power"));
+            String type = cursor.getString(cursor.getColumnIndex("type"));
             Pokemon pokemon = new Pokemon(name, power, type);
             pokemons.add(pokemon);
         }
@@ -101,7 +104,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Pokemon tmp = pokemons.get(position);
                 Intent intent = new Intent(MainActivity.this, EditScreen.class);
-                intent.putExtra("column", position);
+                Cursor cursor1 = db.rawQuery("select * from tbl_pokemon where name='" + tmp.getName() + "'" , null);
+                cursor1.moveToFirst();
+                intent.putExtra("column", String.valueOf(cursor1.getInt(cursor1.getColumnIndex("id"))));
                 intent.putExtra("tbl_name", table_name);
                 startActivity(intent);
             }
