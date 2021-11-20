@@ -1,16 +1,19 @@
 package com.example.mylistview;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<Pokemon> pokemonList;
@@ -18,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     PokemonAdapter adapter;
 
     SQLiteDatabase db;
+    FloatingActionButton fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,29 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
         db = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
+        pokemonList = new ArrayList<>();
 
-        Pokemon pk1 = new Pokemon("giglipuf",
-                500, "mind");
 
-        Pokemon pk2 = new Pokemon("psyduck",
-                1500, "mind");
-
-        Pokemon pk3 = new Pokemon("aggron",
-                2000, "rock");
-
-        Pokemon pk4 = new Pokemon("picachu",
-                3500, "electricity");
-
-        Pokemon pk5 = new Pokemon("riyachu",
-                5500, "electricity");
-
-        pokemonList = new ArrayList<Pokemon>();
-        pokemonList.add(pk1);
-        pokemonList.add(pk2);
-        pokemonList.add(pk3);
-        pokemonList.add(pk4);
-        pokemonList.add(pk5);
-
+        Cursor cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_POKEMON, null);
+        while(cursor.moveToNext()){
+            String name = cursor.getString(1);
+            int power = cursor.getInt(2);
+            String type = cursor.getString(3);
+            Pokemon pokemon = new Pokemon(name, power, type);
+            pokemonList.add(pokemon);
+        }
 
 
         lv = findViewById(R.id.lv_pokemon);
@@ -63,5 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        fab = findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this,
+                        AddPokemon_Screen.class));
+            }
+        });
     }
+
 }

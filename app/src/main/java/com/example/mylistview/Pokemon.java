@@ -4,6 +4,20 @@ public class Pokemon {
     private String name;
     private int power;
     private String type;
+    private int pid;
+
+    public Pokemon(String name,int pid) {
+        this.name = name;
+        this.pid = pid;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
 
     public Pokemon(String name, int power, String type) {
         this.name = name;

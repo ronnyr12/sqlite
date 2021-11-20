@@ -7,104 +7,63 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class SplashScreen extends AppCompatActivity {
-    Button btnEnter;
+public class SplashScreen extends AppCompatActivity implements View.OnClickListener {
+    Button btnEnter, btn_admin;
     SQLiteDatabase db;
-
-
+    ImageView imageView;
+    int clicked = 0;
+    EditText et_admin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        //phase 1 - init adb refernce to our database
         db = openOrCreateDatabase(Utils.DATABASE_NAME,
                 MODE_PRIVATE, null);
-        //the 1st creation of database
-        createDatabase();
-        //adds actual dat to our db
-        addALLToDb();
 
+        et_admin = findViewById(R.id.et_admin);
+        et_admin.setVisibility(View.INVISIBLE);
+        btn_admin = findViewById(R.id.btn_admin);
+        btn_admin.setVisibility(View.INVISIBLE);
+        btn_admin.setOnClickListener(this);
+
+        Utils.createTables(db);
+        Utils.addDefault_Pokemons(db);
+        Utils.addDefault_Trainers(db);
+
+        imageView = findViewById(R.id.imageView);
+        imageView.setOnClickListener(this);
         btnEnter = findViewById(R.id.btnEnter);
-        btnEnter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SplashScreen.this,
-                        MainActivity.class));
+        btnEnter.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        if(imageView == v){
+            clicked++;
+            if(clicked == 7){
+                et_admin.setVisibility(View.VISIBLE);
+                btn_admin.setVisibility(View.VISIBLE);
             }
-        });
-    }
-
-    /**
-     * custom method
-     * one time database creation
-     */
-    public void createDatabase(){
-
-        String createQuery = "create table if not exists tbl_pokemon(name text," +
-                " power integer, type text)";
-
-        db.execSQL(createQuery);
-
-        /*db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
-                " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+
-                " integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");*/
-
-
-    }
-
-    /**
-     * custom method
-     * adds values to database
-     * creates in background objects of pokemons
-     */
-    public void addALLToDb(){
-        ArrayList<Pokemon>pokemonList =
-                new ArrayList<>();
-
-        Pokemon pk1 = new Pokemon("giglipuf",
-                        500, "mind");
-
-        Pokemon pk2 = new Pokemon("psyduck",
-                1500, "mind");
-
-        Pokemon pk3 = new Pokemon("aggron",
-                2000, "rock");
-
-        Pokemon pk4 = new Pokemon("picachu",
-                3500, "electricity");
-
-        Pokemon pk5 = new Pokemon("riyachu",
-                5500, "electricity");
-
-        pokemonList = new ArrayList<Pokemon>();
-        pokemonList.add(pk1);
-        pokemonList.add(pk2);
-        pokemonList.add(pk3);
-        pokemonList.add(pk4);
-        pokemonList.add(pk5);
-
-
-        for (Pokemon p: pokemonList) {
-            //db.execSQL("insert into tbl_pokemon values(picahu, 3000,mind)");
-
-            db.execSQL("insert into tbl_pokemon values("+p.getName()+", "+p.getPower()+","+p.getType()+")");
         }
-
-        /*
-            foreach as a simple for loop
-
-            for (int i = 0; i < pokemonList.size(); i++) {
-            Pokemon p = pokemonList.get(i);
-            //add desire code
-           }
-         */
-
-
-
+        if(btn_admin == v){
+            String id = et_admin.getText().toString();
+            if(id.equals(Utils.ADMIN_ID)){
+                Intent intent = new Intent(SplashScreen.this,
+                        CatchPokemon_Screen.class);
+                intent.putExtra(Utils.INTENT_KEY_TRAINER_ID, id);
+                startActivity(intent);
+            }
+        }
+        if(btnEnter == v){
+            startActivity(new Intent(SplashScreen.this,
+                    MainActivity.class));
+        }
     }
-
 }
