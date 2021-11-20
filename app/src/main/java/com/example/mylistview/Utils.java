@@ -24,7 +24,7 @@ public class Utils {
         db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
                 " ("+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
 
-        db.execSQL("create table if not exists tbl_trainer(name text, phone text, id integer)");
+        db.execSQL("create table if not exists tbl_trainer(name text, phone text, id integer primary key autoincrement)");
 
         db.execSQL("create table if not exists " + Utils.TABLE_NAME_CAUGHT + "(id integer, pid integer)");
     }

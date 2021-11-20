@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
             String name = cursor.getString(0);
             int id = cursor.getInt(2);
             String phone = cursor.getString(1);
-            Trainer tmp = new Trainer(name, phone, id);
-           trainers.add(tmp);
+            Trainer tmp = new Trainer(name, phone);
+            trainers.add(tmp);
         }
 
         adapter = new TrainerAdapter(trainers, MainActivity.this);

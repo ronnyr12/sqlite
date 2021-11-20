@@ -3,12 +3,10 @@ package com.example.mylistview;
 public class Trainer {
     private String name;
     private String phone;
-    private int id;
 
-    public Trainer(String name, String phone, int id){
+    public Trainer(String name, String phone){
         this.name = name;
         this.phone = phone;
-        this.id = id;
     }
 
     public String getName() {

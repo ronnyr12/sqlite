@@ -45,4 +45,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.37" />
+
+    <Button
+        android:id="@+id/btn_catch"
+        android:layout_width="141dp"
+        android:layout_height="62dp"
+        android:text="catch"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.587"
+        android:backgroundTint="#E91E63"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
