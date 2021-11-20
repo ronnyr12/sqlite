@@ -47,9 +47,6 @@ public class CatchPokemon_Screen extends AppCompatActivity {
             String name = cursor.getString(cursor.getColumnIndex("name"));
             pokemon_names.add(name);
         }
-        for(String i : pokemon_names){
-            System.out.println(i);
-        }
 
         button = findViewById(R.id.btn_catch);
         button.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +58,7 @@ public class CatchPokemon_Screen extends AppCompatActivity {
                 int pid = c.getInt(c.getColumnIndex("id"));
 
                 db.execSQL("insert into " + Utils.TABLE_NAME_CAUGHT + " values(" + id + "," + pid +")");
+                Toast.makeText(CatchPokemon_Screen.this, pokemon + " has been caught by " + trainer, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(CatchPokemon_Screen.this, SplashScreen.class));
 
             }

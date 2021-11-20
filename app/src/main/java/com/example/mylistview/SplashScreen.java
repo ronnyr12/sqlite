@@ -73,13 +73,11 @@ public class SplashScreen extends AppCompatActivity implements View.OnClickListe
                 boolean right = false;
                 Cursor cursor = db.rawQuery("select id  from tbl_trainer ",null);
                 while(cursor.moveToNext()){
-                    System.out.println(cursor.getInt(cursor.getColumnIndex("id")));
                     if(id.equals(String.valueOf(cursor.getInt(cursor.getColumnIndex("id"))))) {
                         i = new Intent(SplashScreen.this, CatchPokemon_Screen.class);
                         i.putExtra("id", id);
                         startActivity(i);
                         right = true;
-                        Toast.makeText(SplashScreen.this, "Wrong id", Toast.LENGTH_SHORT).show();
                     }
                 }
                 if(!right) Toast.makeText(SplashScreen.this, "Wrong id", Toast.LENGTH_SHORT).show();

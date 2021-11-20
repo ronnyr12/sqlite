@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, EditScreen.class);
                 Cursor cursor1 = db.rawQuery("select * from tbl_trainer where name='" + tmp.getName() + "'" , null);
                 cursor1.moveToFirst();
-                System.out.println(String.valueOf(cursor1.getInt(cursor1.getColumnIndex("id"))));
                 intent.putExtra("column", String.valueOf(cursor1.getInt(cursor1.getColumnIndex("id"))));
                 intent.putExtra("tbl_name", table_name);
                 startActivity(intent);

@@ -25,6 +25,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public class EditScreen extends AppCompatActivity {
 
     Button btn_submit;
@@ -34,7 +41,7 @@ public class EditScreen extends AppCompatActivity {
     String column;
     Context c;
     String table_name;
-    TextView title;
+    TextView title, pokemons;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,15 +59,15 @@ public class EditScreen extends AppCompatActivity {
         btn_submit = findViewById(R.id.edit);
         img = findViewById(R.id.img);
         title = findViewById(R.id.title);
+        pokemons = findViewById(R.id.caught_pokemons);
 
         db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
         Intent intent = getIntent();
         column = intent.getStringExtra("column");
-        System.out.println(column);
-        System.out.println(column);
         table_name = intent.getStringExtra("tbl_name");
 
         if(table_name.equals("tbl_pokemon")){
+            pokemons.setVisibility(View.INVISIBLE);
             Cursor cursor = db.rawQuery("select * from tbl_pokemon where id = " + column , null);
             cursor.moveToFirst();
             et_name.setText(cursor.getString(cursor.getColumnIndex("name")));
@@ -99,7 +106,6 @@ public class EditScreen extends AppCompatActivity {
 
         else{
             title.setText("Trainer Editor");
-            System.out.print(column);
             Cursor cursor = db.rawQuery("select * from " + table_name + " where id=" + column, null );
             cursor.moveToFirst();
             et_power.setEnabled(false);
@@ -112,6 +118,24 @@ public class EditScreen extends AppCompatActivity {
             et_power.setHint("ID");
             c = getApplicationContext();
             img.setImageResource(R.drawable.trainer);
+
+            ArrayList<String> captured = new ArrayList<>();
+            ArrayList<Integer> ids = new ArrayList<>();
+
+            Cursor c1 = db.rawQuery("select * from " + Utils.TABLE_NAME_CAUGHT + " where id = " + column, null);
+            while(c1.moveToNext()){
+                ids.add(c1.getInt(c1.getColumnIndex("pid")));
+            }
+
+            for( int id : ids){
+                c1 = db.rawQuery("select * from tbl_pokemon where id =" + id, null);
+                c1.moveToFirst();
+                captured.add(c1.getString(c1.getColumnIndex("name")));
+            }
+            List<String> pk = captured.stream().distinct().collect(Collectors.toList());;
+
+            pokemons.setText("Captured Pokemons:" + pk.toString().substring(1, pk.toString().length()-1));
+
 
 
             btn_submit.setOnClickListener(new View.OnClickListener() {
