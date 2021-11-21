@@ -1,6 +1,7 @@
 package com.example.mylistview;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -29,7 +30,7 @@ public class SplashScreen extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         db = openOrCreateDatabase(Utils.DATABASE_NAME, MODE_PRIVATE, null);
 
         Utils.createTables(db);

@@ -42,6 +42,7 @@ public class EditScreen extends AppCompatActivity {
     Context c;
     String table_name;
     TextView title, pokemons;
+    MenuItem delete;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,6 +54,7 @@ public class EditScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_screen);
+
         et_name = findViewById(R.id.name);
         et_type = findViewById(R.id.type);
         et_power = findViewById(R.id.power);
@@ -65,6 +67,14 @@ public class EditScreen extends AppCompatActivity {
         Intent intent = getIntent();
         column = intent.getStringExtra("column");
         table_name = intent.getStringExtra("tbl_name");
+
+        /*
+        delete = findViewById(R.id.delete);
+        if(table_name.equals("tbl_trainer")){
+            delete.setTitle("Delete Trainer");
+        }
+         */
+
 
         if(table_name.equals("tbl_pokemon")){
             pokemons.setVisibility(View.INVISIBLE);
@@ -137,7 +147,6 @@ public class EditScreen extends AppCompatActivity {
             pokemons.setText("Captured Pokemons:" + pk.toString().substring(1, pk.toString().length()-1));
 
 
-
             btn_submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -150,7 +159,7 @@ public class EditScreen extends AppCompatActivity {
                         cv.put("id", Integer.parseInt(et_power.getText().toString()));
                         cv.put("phone", et_type.getText().toString());
 
-                        db.update(table_name, cv, "rowid=?",new String[]{column});
+                        db.update(table_name, cv, "id="+ column,null);
                         Intent i = new Intent(EditScreen.this, MainActivity.class);
                         i.putExtra("tbl_name", table_name);
                         startActivity(i);
@@ -169,7 +178,7 @@ public class EditScreen extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.delete){
 
-            db.delete(table_name, "rowid=?", new String[]{column});
+            db.delete(table_name, "id=?", new String[]{column});
             db.execSQL("vacuum"); //resets rowids
             Intent intent = new Intent(EditScreen.this, MainActivity.class);
             intent.putExtra("tbl_name", table_name);

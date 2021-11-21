@@ -51,9 +51,10 @@ public class TrainerAdapter extends BaseAdapter {
 
         tv_name.setText(tmp.getName());
         tv_phone.setText(tmp.getPhone());
-
+        System.out.println(tmp.getName());
         Cursor cursor = db.rawQuery("select * from tbl_trainer where name='" + tmp.getName() + "'", null);
         cursor.moveToFirst();
+        System.out.println(cursor.getInt(cursor.getColumnIndex("id")));
         tv_id.setText(String.valueOf(cursor.getInt(cursor.getColumnIndex("id"))));
         img.setImageResource(R.drawable.trainer);
 

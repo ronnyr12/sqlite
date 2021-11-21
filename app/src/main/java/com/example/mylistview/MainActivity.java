@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         Cursor cursor = db.rawQuery("select * from " + "tbl_trainer", null);
         while(cursor.moveToNext()){
-            String name = cursor.getString(0);
-            int id = cursor.getInt(2);
-            String phone = cursor.getString(1);
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String phone = cursor.getString(cursor.getColumnIndex("phone"));
             Trainer tmp = new Trainer(name, phone);
             trainers.add(tmp);
         }

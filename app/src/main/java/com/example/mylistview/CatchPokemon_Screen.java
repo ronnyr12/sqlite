@@ -47,6 +47,25 @@ public class CatchPokemon_Screen extends AppCompatActivity {
             String name = cursor.getString(cursor.getColumnIndex("name"));
             pokemon_names.add(name);
         }
+        cursor = db.rawQuery("select * from " + Utils.TABLE_NAME_CAUGHT , null);
+        ArrayList<Integer> caught_ids = new ArrayList<>();
+
+        while(cursor.moveToNext()){
+            caught_ids.add(cursor.getInt(cursor.getColumnIndex("pid")));
+        }
+        System.out.println(caught_ids.toString());
+        ArrayList<String> captured = new ArrayList<>();
+        for( int pk_id : caught_ids){
+            cursor = db.rawQuery("select * from tbl_pokemon where id =" + pk_id, null);
+            cursor.moveToFirst();
+            captured.add(cursor.getString(cursor.getColumnIndex("name")));
+        }
+        System.out.println(captured.toString());
+        for(String capt : captured){
+            if(pokemon_names.contains(capt)){
+                pokemon_names.remove(capt);
+            }
+        }
 
         button = findViewById(R.id.btn_catch);
         button.setOnClickListener(new View.OnClickListener() {
