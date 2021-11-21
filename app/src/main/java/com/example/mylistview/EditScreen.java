@@ -43,7 +43,7 @@ public class EditScreen extends AppCompatActivity {
 
         String pokemonName = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_NAME);
         String pokemonType = intent.getStringExtra(Utils.INTENT_KEY_POKEMON_TYPE);
-        int pid = intent.getIntExtra( "pid", 0);
+        int pid = intent.getIntExtra(Utils.INTENT_KEY_POKEMON_PID, 0);
 
         rg_type = findViewById(R.id.rg_type);
         tv_edit_name = findViewById( R.id.tv_edit_name );
@@ -52,7 +52,7 @@ public class EditScreen extends AppCompatActivity {
         row_id = findViewById( R.id.row_id );
 
         tv_edit_name.setText(pokemonName);
-        row_id.setText( ""+pid );
+        row_id.setText(""+pid);
         //setTypeRButtonChecked(pokemonType);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +62,13 @@ public class EditScreen extends AppCompatActivity {
                 int selectedId = rg_type.getCheckedRadioButtonId();
                 // find the radiobutton by returned id
                 radioButton = findViewById(selectedId);
-                System.out.println(selectedId);
+
+                String type = radioButton.getText().toString();
+                db.execSQL("update tbl_pokemon set "+Utils.TABLE_POKEMON_COL_TYPE+" = '"+type+"' where "+Utils.TABLE_POKEMON_COL_PID+" = "+pid);
+
                 Toast.makeText(EditScreen.this,
                         radioButton.getText(), Toast.LENGTH_LONG).show();
+                startActivity(new Intent(EditScreen.this, MainActivityPokemon.class));
             }
         });
         edit_layout = findViewById(R.id.edit_layout);
