@@ -10,7 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyListView">
         <activity
+            android:name=".Trainer_Screen"
+            android:exported="false" />
+        <activity
             android:name=".CatchPokemon_Screen"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivityTrainer"
+            android:exported="false" />
+        <activity
+            android:name=".ChooseScreen"
             android:exported="false" />
         <activity
             android:name=".AddPokemon_Screen"
@@ -19,7 +28,7 @@
             android:name=".EditScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivityPokemon"
             android:exported="false" />
         <activity
             android:name=".SplashScreen"

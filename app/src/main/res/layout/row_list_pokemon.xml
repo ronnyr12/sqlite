@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tv_pokemon_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="name"
@@ -35,7 +35,7 @@
         android:text="type"
         app:layout_constraintEnd_toStartOf="@+id/tv_power"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_name"
+        app:layout_constraintStart_toEndOf="@+id/tv_pokemon_name"
         tools:layout_editor_absoluteY="130dp" />
 
     <View
@@ -49,5 +49,5 @@
         android:foregroundTint="#E91E63"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_pokemon_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
