@@ -27,6 +27,8 @@ public class Utils {
     final static String INTENT_KEY_POKEMON_NAME = "pokemon_name";
     final static String INTENT_KEY_POKEMON_POWER = "pokemon_power";
     final static String INTENT_KEY_POKEMON_TYPE = "pokemon_type";
+    final static String INTENT_KEY_POKEMON_PID = "pokemon_pid";
+
 
     final static String INTENT_KEY_TRAINER_NAME = "name";
     final static String INTENT_KEY_TRAINER_PHONE = "phone";
@@ -37,7 +39,7 @@ public class Utils {
      * @param db - a reference to our database
      */
     public static void createTables(SQLiteDatabase db){
-       // db.execSQL( "drop table tbl_pokemon" );
+        db.execSQL("drop table tbl_pokemon");
         db.execSQL("create table if not exists "+Utils.TABLE_NAME_POKEMON+
                 " ("+TABLE_POKEMON_COL_PID+" INTEGER PRIMARY KEY AUTOINCREMENT ,"+Utils.TABLE_POKEMON_COL_NAME+" text, "+Utils.TABLE_POKEMON_COL_POWER+" integer, "+Utils.TABLE_POKEMON_COL_TYPE+" text)");
 
@@ -84,7 +86,7 @@ public class Utils {
         pokemonList.add(pk6);
 
         for (Pokemon p: pokemonList) {
-            db.execSQL("insert into tbl_pokemon values( null,'"+p.getName()+"',"+p.getPower()+",'"+p.getType()+"')");
+            db.execSQL("insert into tbl_pokemon values(null,'"+p.getName()+"',"+p.getPower()+",'"+p.getType()+"')");
         }
     }
 

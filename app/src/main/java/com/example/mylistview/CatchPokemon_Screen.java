@@ -20,6 +20,7 @@ public class CatchPokemon_Screen extends AppCompatActivity {
     ArrayList<String> pokemonNames;
     SQLiteDatabase db;
     String trainerId="";
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +36,16 @@ public class CatchPokemon_Screen extends AppCompatActivity {
         spinner_pokemon = findViewById(R.id.spinner_pokemon);
 
         //extract the pokemons names from the database
-        Cursor cursor = db.rawQuery("select * from " +
-                Utils.TABLE_NAME_POKEMON, null);
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(1);
+        Cursor cursor = db.rawQuery("select * from " +Utils.TABLE_NAME_POKEMON, null);
+        while(cursor.moveToNext()) {
+            name = cursor.getString(1);
             int pid = cursor.getInt( 0 );
             Pokemon tmp = new Pokemon( name, pid );
 
             partialPokemons.add(tmp);
             pokemonNames.add(name);   //for the spinner we required to supply a names list
         }
-        //spinner to make it work, yes? - Creating the ArrayAdapter instance having the pokemon names list
+        //spinner to make it work, yes? - Creating the ArrayAdapter instance having the pokemon names' list
         ArrayAdapter arrayAdapter = new ArrayAdapter( this, android.R.layout.simple_spinner_item, pokemonNames );
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -55,7 +55,7 @@ public class CatchPokemon_Screen extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), pokemonNames.get(position), Toast.LENGTH_LONG).show();
-                db.execSQL("insert into "+Utils.TABLE_CAUGHT_POKEMON_NAME+" values('"+trainerId+"')");
+                name = pokemonNames.get(position);
             }
 
             @Override
